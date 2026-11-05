@@ -12,7 +12,7 @@
 <meta property="og:image:secure_url" content="https://asna-anas.vercel.app/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:height" content="1024">
 <meta property="og:image:alt" content="Asna & Anas, Nikah on 12 December 2026 at The Farm Fit Resort, Wayanad">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Asna & Anas · Nikah">
@@ -55,11 +55,13 @@ body{height:100%;margin:0;background:var(--desk);color:var(--ink);font-family:va
 /* ---------- main screen ---------- */
 #main{z-index:1;overflow:hidden;overscroll-behavior:contain;scrollbar-width:none}
 #main::-webkit-scrollbar{display:none}
-#main.open{overflow-y:auto;-webkit-overflow-scrolling:touch}
+#main.open{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 .hero-sec{position:relative;height:100cqh;overflow:hidden}
 .hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;
   background:linear-gradient(180deg,rgba(247,242,233,0),#f7f2e9);pointer-events:none}
 #mainBg{position:absolute;inset:0;overflow:hidden}
+#heroVid{opacity:0}
+#heroVid.live{opacity:1}
 #mainBg img,#mainBg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;max-width:none}
 .hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:9.5cqh max(14px,5cqw) 0;color:#1f2a30;isolation:isolate}
@@ -259,16 +261,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 #music[aria-pressed="false"] .on{display:none}
 #music[aria-pressed="false"] .off{display:block}
 #music:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
-#replay{position:absolute;z-index:9;top:calc(14px + env(safe-area-inset-top,0px));right:14px;
-  font-family:var(--serif);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink);background:rgba(255,255,255,.72);border:1px solid rgba(63,75,82,.18);border-radius:999px;
-  padding:7px 14px;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-#replay:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
 
 /* final state for reduced motion */
 .final #env,.final #gates{display:none}
 .final #mainBg{transform:none}
-.final #heroVid{display:none}
+.final #heroVid,.final #heroFirst{display:none}
 .final .hero>*{opacity:1;transform:none}
 .final .scroll-hint{opacity:1}
 </style>
@@ -304,7 +301,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
    <section class="hero-sec">
     <div id="mainBg">
       <img src="assets/main.webp" alt="">
-      <video id="heroVid" poster="assets/hero-first.webp" muted playsinline preload="auto" disablepictureinpicture>
+      <img id="heroFirst" src="assets/hero-first.webp" alt="">
+      <video id="heroVid" muted playsinline preload="auto" disablepictureinpicture>
         <source src="assets/hero.mp4" type="video/mp4">
         <source src="assets/hero.webm" type="video/webm">
       </video>
@@ -560,7 +558,6 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
     </div>
   </section>
 
-  <button id="replay" type="button" hidden>Replay</button>
   <button id="music" type="button" aria-label="Music" aria-pressed="false" hidden>
     <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
     <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
@@ -628,6 +625,8 @@ const CONFIG = {
     if (started) return;
     started = true;
     startMusic();
+    { const hv = $('heroVid'); hv.muted = true; const pr = hv.play(); // warm up the decoder, then park on the first frame
+      if (pr && pr.then) pr.then(() => { hv.pause(); try { hv.currentTime = 0; } catch (_) {} }, () => {}); }
     env.classList.remove('idle');
     env.style.pointerEvents = 'none';
     const ease = 'cubic-bezier(.65,0,.35,1)';
@@ -679,13 +678,20 @@ const CONFIG = {
     // hero video starts only once the gates video has fully faded away (no zoom on the hero, so no shake)
     const hv = $('heroVid'), run = runId;
     hv.onended = null; // the last frame simply holds, perfectly still
-    at(1600, () => { if (run !== runId) return; const p = hv.play(); if (p && p.catch) p.catch(() => {}); });
+    at(1600, () => {
+      if (run !== runId) return;
+      const show = () => { if (run === runId) hv.classList.add('live'); };
+      try { hv.currentTime = 0; } catch (_) {}
+      const p = hv.play();
+      if (hv.requestVideoFrameCallback) hv.requestVideoFrameCallback(show); else hv.addEventListener('playing', show, { once: true });
+      if (p && p.catch) p.catch(() => { $('heroFirst').style.display = 'none'; }); // no playback: show the finished still instead
+    });
     const T6 = 1200;
     [...$('hero').children].forEach((el, i) =>
       A(el, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: T6 + i * 110, easing: 'ease-out' }));
     A($('hint'), [{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: T6 + 1500 });
-    at(T6 + 1500, () => { $('main').classList.add('open'); initScroll(); });
-    at(T6 + 2000, () => { $('replay').hidden = false; });
+    at(T6 + 300, () => { $('main').classList.add('open'); });
+    at(T6 + 3200, initScroll);
   }
 
   /* ---------- countdown: 12 December 2026, 4:00 PM, Asia/Kolkata ---------- */
@@ -798,11 +804,10 @@ const CONFIG = {
     anims.forEach(a => a.cancel()); anims = [];
     timers.forEach(clearTimeout); timers = [];
     $('petals').replaceChildren();
-    $('replay').hidden = true;
     $('main').classList.remove('open'); $('main').scrollTop = 0;
     runId++;
     const v = $('gVid'); v.pause(); v.onended = null; try { v.currentTime = 0; } catch (_) {}
-    const hv = $('heroVid'); hv.pause(); try { hv.currentTime = 0; } catch (_) {}
+    const hv = $('heroVid'); hv.pause(); hv.classList.remove('live'); $('heroFirst').style.display = ''; try { hv.currentTime = 0; } catch (_) {}
     started = false;
     env.classList.add('idle'); env.style.pointerEvents = '';
     layout();
@@ -814,7 +819,6 @@ const CONFIG = {
     if (reduce) { phone.classList.add('final'); $('main').classList.add('open'); $('music').hidden = false; return; }
     env.addEventListener('click', play);
     env.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
-    $('replay').addEventListener('click', reset);
     if (location.hash === '#auto') setTimeout(play, 600);
   }
 
