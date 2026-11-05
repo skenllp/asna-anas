@@ -100,8 +100,8 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .flip{transform:scaleX(-1)}
 
 /* hero -> countdown: drapery, columns and candles continue the venue */
-.s-count{min-height:80cqh;padding:0}
-.s-count .col{top:2cqh;height:min(70cqh,150cqw);width:auto;z-index:1}
+.s-count{min-height:0;height:min(70cqh,150cqw);padding:0;margin-top:-8cqh;margin-bottom:-1px}
+.s-count .col{top:0;height:min(70cqh,150cqw);width:auto;z-index:1}
 .s-count .col.l{left:calc(-1 * min(3cqw, 2cqh))}
 .s-count .col.r{right:calc(-1 * min(3cqw, 2cqh))}
 .s-count .c{max-width:none;padding:0 24cqw;margin-top:-6cqh}
@@ -651,8 +651,6 @@ const CONFIG = {
 
     // 3. swap to the gates video (its first frame is the card), then play it
     const T3 = T2 + 1750;
-    A($('gates'), [{ opacity: 0 }, { opacity: 1 }], { duration: 1, delay: T3 });
-    A(env, [{ opacity: 1 }, { opacity: 0 }], { duration: 1, delay: T3 + 30 });
     at(T3, startVideo);
   }
 
@@ -671,6 +669,11 @@ const CONFIG = {
     v.onended = finish;
     try { v.currentTime = 0; } catch (_) {}
     const p = v.play();
+    // show the gates only once the video has painted a real frame, so there is no flash between the card and the video
+    let swapped = false;
+    const swap = () => { if (swapped || run !== runId) return; swapped = true; $('gates').style.opacity = '1'; env.style.opacity = '0'; };
+    if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(swap); else v.addEventListener('playing', swap, { once: true });
+    at(700, swap);
     const go = () => { if (run !== runId) return; intro(); at(2900, petals); at(9500, finish); };
     if (p && p.then) p.then(go, () => { intro(); at(4200, finish); });
     else go();
@@ -839,7 +842,7 @@ const CONFIG = {
     const v = $('gVid'); v.pause(); v.onended = null; try { v.currentTime = 0; } catch (_) {}
     const hv = $('heroVid'); hv.pause(); hv.classList.remove('live'); $('heroFirst').style.display = ''; try { hv.currentTime = 0; } catch (_) {}
     started = false;
-    env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; $('gates').style.display = '';
+    env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; $('gates').style.display = ''; $('gates').style.opacity = ''; env.style.opacity = '';
     layout();
   }
 
