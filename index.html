@@ -60,7 +60,7 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;
   background:linear-gradient(180deg,rgba(247,242,233,0),#f7f2e9);pointer-events:none}
 #mainBg{position:absolute;inset:0;overflow:hidden}
-#heroVid{opacity:0}
+#heroVid{opacity:0;transition:opacity .4s ease}
 #heroVid.live{opacity:1}
 #mainBg img,#mainBg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;max-width:none}
 .hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
@@ -246,8 +246,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 .env-text{position:absolute;left:0;right:0;top:calc(var(--ey) + var(--eh) + 5cqh);text-align:center;color:#76837a;
   padding:0 max(16px,6cqw)}
 .env-text .s{font-family:var(--script);font-size:min(4.2cqh,9cqw);line-height:1.2}
-.env-text .hint{margin-top:2.6cqh;font-family:var(--serif);font-weight:600;letter-spacing:.26em;
-  text-transform:uppercase;font-size:min(1.3cqh,2.9cqw);color:#8b968e;animation:pulse 2.4s ease-in-out infinite}
+.open-btn{margin-top:2.8cqh;font-family:var(--serif);font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  font-size:min(1.45cqh,3.1cqw);color:#4f6b57;background:rgba(255,253,248,.75);border:1px solid rgba(63,90,69,.38);
+  border-radius:999px;padding:1.1cqh 5.2cqw;cursor:pointer;-webkit-appearance:none;appearance:none;
+  box-shadow:0 2px 10px rgba(60,80,60,.12);animation:pulse 2.4s ease-in-out infinite}
+.open-btn:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
 .idle .seal-in{animation:breathe 2.4s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.35}}
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
@@ -256,6 +259,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
   width:46px;height:46px;border-radius:50%;border:1px solid rgba(63,90,69,.22);background:rgba(255,253,248,.82);color:#3f5a45;
   display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   box-shadow:0 4px 14px rgba(40,50,40,.12)}
+#music[hidden]{display:none}
 #music svg{width:20px;height:20px}
 #music .off{display:none}
 #music[aria-pressed="false"] .on{display:none}
@@ -554,7 +558,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
     </div>
     <div class="env-text" id="envText">
       <div class="s">Requests the pleasure<br>of your company</div>
-      <div class="hint">Tap the seal to open</div>
+      <button class="open-btn" type="button">Open invitation</button>
     </div>
   </section>
 
@@ -695,6 +699,32 @@ const CONFIG = {
     at(2600, () => { if (run === runId) { $('gates').style.display = 'none'; env.style.display = 'none'; } });
     at(T6 + 3200, initScroll);
   }
+
+  /* ---------- scroll safety net: if a browser (some Safari builds) refuses to scroll the panel natively, drive it by hand ---------- */
+  (function () {
+    const m = $('main'); let y0 = 0, st = 0, n = 0, manual = false, last = 0, lastT = 0, vel = 0, raf = 0;
+    m.addEventListener('touchstart', e => { cancelAnimationFrame(raf); y0 = last = e.touches[0].clientY; st = m.scrollTop; n = 0; manual = false; vel = 0; lastT = e.timeStamp; }, { passive: true });
+    m.addEventListener('touchmove', e => {
+      if (!m.classList.contains('open')) return;
+      const y = e.touches[0].clientY; n++;
+      if (!manual && n >= 5 && Math.abs(y - y0) > 30 && e.cancelable && Math.abs(m.scrollTop - st) < 1) manual = true;
+      if (manual) {
+        if (e.cancelable) e.preventDefault();
+        m.scrollTop = st + (y0 - y);
+        const dt = e.timeStamp - lastT; if (dt > 0) vel = (last - y) / dt; last = y; lastT = e.timeStamp;
+      }
+    }, { passive: false });
+    m.addEventListener('touchend', () => {
+      if (!manual) return;
+      let v = vel * 16;
+      const step = () => { if (Math.abs(v) < 0.5) return; m.scrollTop += v; v *= 0.95; raf = requestAnimationFrame(step); };
+      raf = requestAnimationFrame(step);
+    }, { passive: true });
+    m.addEventListener('wheel', e => {
+      if (!m.classList.contains('open')) return;
+      const t = m.scrollTop; requestAnimationFrame(() => { if (m.scrollTop === t) m.scrollTop = t + e.deltaY; });
+    }, { passive: true });
+  })();
 
   /* ---------- countdown: 12 December 2026, 4:00 PM, Asia/Kolkata ---------- */
   const TARGET = new Date('2026-12-12T16:00:00+05:30').getTime();
