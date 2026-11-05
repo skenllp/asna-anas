@@ -12,27 +12,31 @@
 <meta property="og:image:secure_url" content="https://asna-anas.vercel.app/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1024">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Asna & Anas, Nikah on 12 December 2026 at The Farm Fit Resort, Wayanad">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Asna & Anas · Nikah">
 <meta name="twitter:description" content="Saturday, 12 December 2026 · The Farm Fit Resort, Wayanad">
 <meta name="twitter:image" content="https://asna-anas.vercel.app/og-image.jpg">
-<meta name="theme-color" content="#f7f2e9">
+<meta name="theme-color" content="#f8e8e1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap">
 <style>
-/* Layout: one phone-sized stage; three stacked scenes (envelope, gates, main) driven by a single timeline. */
+/* Layout: one phone-sized stage; two stacked scenes (envelope, main) driven by a single timeline. */
 :root{
-  --desk:#e6e1d6;
-  --paper:#f5f0e5;
-  --paper-in:#ebe3d2;
-  --paper-shade:#ddd3bf;
-  --ink:#3f4b52;
-  --ink-soft:#67757b;
-  --sage:#7f9070;
-  --rule:#a7b1b3;
+  --desk:#ecd9d3;
+  --paper:#fff8f3;
+  --paper-in:#f3d7d1;
+  --paper-shade:#e6c3bd;
+  --ink:#6a3a45;
+  --ink-soft:#a44559;
+  --sage:#a44559;
+  --rule:#d9b2ae;
+  --burg:#a44559;
+  --burg-d:#8a3347;
+  --rose:#f2d5d0;
+  --gold:#c99b7a;
   --white:#ffffff;
   --script:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
   --serif:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;
@@ -58,36 +62,34 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 #main.show,.final #main{visibility:visible}
 #main.open{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 .hero-sec{position:relative;height:100cqh;overflow:hidden}
-.hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;
-  background:linear-gradient(180deg,rgba(247,242,233,0),#f7f2e9);pointer-events:none}
+.hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13cqh;
+  background:linear-gradient(180deg,rgba(248,232,225,0),#f8e8e1);pointer-events:none}
 #mainBg{position:absolute;inset:0;overflow:hidden}
-#heroVid{opacity:0;transition:opacity .4s ease}
-#heroVid.live{opacity:1}
-#mainBg img,#mainBg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;max-width:none}
+#mainBg>video-unused{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;max-width:none}
 .hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:9.5cqh max(14px,5cqw) 0;color:#1f2a30;isolation:isolate}
 /* soft light veil behind the text block so every line reads clearly over the sky */
 .hero::before{content:"";position:absolute;left:0;right:0;top:16cqh;height:44cqh;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 60% 52% at 50% 50%,rgba(255,255,255,.72) 0%,rgba(255,255,255,.4) 55%,rgba(255,255,255,0) 100%)}
-.hero .mono-img{height:min(7.6cqh,19cqw);width:auto;max-width:none;margin:0;
-  filter:drop-shadow(0 0 10px rgba(255,255,255,.85))}
-.mono-img{width:auto;max-width:none}
-.scroll-hint{position:absolute;left:0;right:0;bottom:4.5cqh;z-index:1;text-align:center;color:var(--white);opacity:0;
+  background:radial-gradient(ellipse 62% 54% at 50% 50%,rgba(255,248,243,.7) 0%,rgba(255,248,243,.38) 55%,rgba(255,248,243,0) 100%)}
+.gwrap{position:absolute;inset:0}
+.ribbon g{transform-box:fill-box;transform-origin:center}
+.ribbon{transform-origin:50% 40%}
+.scroll-hint{position:absolute;left:0;right:0;bottom:4.5cqh;z-index:1;text-align:center;color:var(--burg);opacity:0;
   font-family:var(--serif);font-weight:600;letter-spacing:.26em;text-transform:uppercase;font-size:11px;
-  text-shadow:0 1px 8px rgba(40,50,60,.45)}
+  text-shadow:0 0 10px rgba(255,248,243,.95)}
 .scroll-hint svg{display:block;margin:6px auto 0;width:16px;height:16px;animation:nudge 1.8s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(5px)}}
 
 /* ---------- below the hero: one continuous illustrated environment ---------- */
 .sections img{height:auto}
-.sections{--bg:#f7f2e9;--sage:#5b6f55;--sage-d:#3f5a45;--ink2:#38443d;--muted:#5f6b63;--gold:#b59b6a;--line:rgba(91,111,85,.32);
-  background:var(--bg) url("assets/paper-warm.webp") center top/100% auto repeat-y;color:var(--ink2);overflow:hidden;position:relative}
+.sections{--bg:#f8e8e1;--sage:#a44559;--sage-d:#8a3347;--ink2:#6a3a45;--muted:#94646d;--gold:#c99b7a;--line:rgba(217,178,174,.85);
+  background:var(--bg) url("assets/paper-ivory-blush.webp") center top/100% auto repeat-y;color:var(--ink2);overflow:hidden;position:relative}
 .sec{position:relative;min-height:84cqh;display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:7cqh max(24px,8cqw)}
 .sec>.c{position:relative;z-index:2;width:100%;max-width:360px}
 .title{font-family:var(--script);font-weight:400;font-size:clamp(44px,12.5cqw,54px);line-height:1.1;color:var(--sage);margin:0;text-wrap:balance}
 .sub{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.24em;font-size:11px;line-height:1.85;color:var(--muted);margin-top:12px;text-wrap:balance}
-.orn{display:block;width:150px;height:14px;margin:22px auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 14'%3E%3Cg fill='none' stroke='%23b59b6a' stroke-width='.8'%3E%3Cpath d='M0 7H60'/%3E%3Cpath d='M100 7H160'/%3E%3Cpath d='M80 1.5l5.5 5.5-5.5 5.5-5.5-5.5z'/%3E%3Cpath d='M60 7c4-5 9-5 12 0M100 7c-4-5-9-5-12 0'/%3E%3C/g%3E%3Ccircle cx='80' cy='7' r='1.3' fill='%23b59b6a'/%3E%3C/svg%3E") center/contain no-repeat}
+.orn{display:block;width:150px;height:14px;margin:22px auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 14'%3E%3Cg fill='none' stroke='%23c99b7a' stroke-width='.8'%3E%3Cpath d='M0 7H60'/%3E%3Cpath d='M100 7H160'/%3E%3Cpath d='M80 1.5l5.5 5.5-5.5 5.5-5.5-5.5z'/%3E%3Cpath d='M60 7c4-5 9-5 12 0M100 7c-4-5-9-5-12 0'/%3E%3C/g%3E%3Ccircle cx='80' cy='7' r='1.3' fill='%23c99b7a'/%3E%3C/svg%3E") center/contain no-repeat}
 .lbl{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.22em;font-size:10.5px;color:var(--muted)}
 .serif-lg{font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.3;color:var(--ink2)}
 .ital{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.5;color:var(--muted)}
@@ -105,6 +107,7 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .s-count .col.l{left:calc(-1 * min(3cqw, 2cqh))}
 .s-count .col.r{right:calc(-1 * min(3cqw, 2cqh))}
 .s-count .c{max-width:none;padding:0 24cqw;margin-top:-6cqh}
+.pd{width:clamp(92px,29cqw,140px);height:auto}
 .s-count .title{font-size:clamp(36px,11cqw,52px)}
 .cd{display:flex;justify-content:center;align-items:stretch;margin-top:28px}
 .cd>div{display:flex;flex-direction:column;align-items:center;padding:0 clamp(9px,3.4cqw,18px)}
@@ -116,28 +119,26 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 /* the celebrations */
 .s-cel{padding-top:calc(30cqw + 4cqh)}
 .s-cel .hdr{top:0;left:0;width:100%;z-index:1}
-.ev-card{position:relative;margin-top:26px;padding:38px 24px 34px;background:rgba(255,253,248,.62);border:1px solid var(--line)}
-.ev-card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(181,155,106,.28);pointer-events:none}
-.ev-card .fl{width:92px;z-index:2}
-.ev-card .fl.tl{top:-34px;left:-30px}
-.ev-card .fl.br{bottom:-30px;right:-28px;transform:scale(-1,-1)}
+.ev-card{position:relative;margin-top:28px;padding:38px 24px 34px;background:rgba(255,248,243,.72);border:1px solid var(--line)}
+.ev-card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(201,155,122,.34);pointer-events:none}
+.ev-card .cel-bq{width:clamp(88px,27cqw,108px);right:-30px;bottom:-26px;z-index:3}
 .ev-card .orn{margin:16px auto}
 .time-s{font-family:var(--serif);font-weight:500;letter-spacing:.12em;font-size:19px;color:var(--ink2);margin-top:4px}
 
 /* families */
-.s-fam .fl.tl{top:-70px;left:-46px;width:min(40cqw,170px);z-index:1}
-.s-fam .fl.br{bottom:-56px;right:-44px;width:min(38cqw,160px);transform:scale(-1,-1);z-index:1}
+.s-fam .fb{bottom:-28px;width:min(31cqw,122px);z-index:1}
+.s-fam .fb.l{left:-9cqw}.s-fam .fb.r{right:-9cqw}
 .fam-entry{margin-top:6px}
 .fam-entry .names-s{font-family:var(--script);font-size:clamp(30px,8.6cqw,36px);line-height:1.25;color:var(--sage);margin-top:10px;text-wrap:balance}
 .fam-entry .ital{margin-top:6px}
 
 /* dress code */
+.s-dress .c{z-index:2}
 .dress-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px}
-.dc{position:relative;height:clamp(210px,64cqw,270px);overflow:hidden;border:1px solid var(--line);background:rgba(255,253,248,.55)}
-.dc img{position:absolute;left:-2px;bottom:-2px;width:74%;max-width:none}
-.dc .txt{position:absolute;right:20px;top:24%;max-width:56%;text-align:right;z-index:1}
-.dc .script-md{font-size:clamp(30px,9cqw,38px);line-height:1.1}
-.dc .lbl{margin-top:8px;font-size:9.5px;letter-spacing:.18em}
+.dc{display:flex;align-items:center;justify-content:center;height:clamp(92px,28cqw,120px);border-radius:22px;border:1px solid var(--line)}
+.dc.blue{background:#c4d6e6}
+.dc.ivory{background:#f7f2e8}
+.dc .script-md{font-size:clamp(32px,9.4cqw,40px);line-height:1.1}
 
 /* where to celebrate */
 .s-venue .venue-art{display:block;width:min(100%,380px);height:auto;margin:26px auto 4px}
@@ -145,95 +146,86 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .when-line{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--ink2);margin-top:12px;line-height:1.9}
 
 /* rsvp */
-.s-rsvp{padding-bottom:calc(12cqh + min(30cqw,140px))}
-.s-rsvp .urn{bottom:0;width:min(32cqw,150px);z-index:1}
-.s-rsvp .urn.l{left:-4cqw}
-.s-rsvp .urn.r{right:-4cqw}
-.form-wrap{margin-top:28px;padding:28px 22px 26px;background:rgba(255,253,248,.62);border:1px solid var(--line);text-align:left}
+.s-rsvp{padding-top:9cqh;padding-bottom:9cqh}
+.form-wrap{position:relative;overflow:hidden;margin-top:0;padding:34px 22px 26px;background:#fffaf6;border:1px solid var(--line);border-radius:18px;text-align:left;
+  box-shadow:0 12px 32px rgba(164,69,89,.10)}
+.form-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:linear-gradient(90deg,#a44559,#c99b7a 50%,#a44559)}
+.form-wrap .title{text-align:center;font-size:clamp(44px,13cqw,54px)}
+.form-wrap .sub{text-align:center;margin-top:8px}
 form{position:relative}
-.field{margin-top:22px}
+.field{margin-top:24px}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-.field>label:not(.radio),.field>legend,.fhead{display:block;font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink2);margin-bottom:8px;padding:0}
+.field>label,.field>legend,.fhead{display:block;font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink2);margin-bottom:10px;padding:0}
 .req-mark{color:var(--gold)}
-.radio{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:17px;padding:7px 0;cursor:pointer;color:var(--ink2);min-height:40px}
-.radio input{accent-color:var(--sage-d);width:18px;height:18px;margin:0;flex:none}
-input[type=text],input[type=email],textarea{width:100%;font-family:var(--serif);font-size:17px;color:var(--ink2);
-  background:rgba(255,255,255,.75);border:0;border-bottom:1px solid rgba(91,111,85,.45);border-radius:0;padding:11px 4px}
-input::placeholder,textarea::placeholder{color:#9aa39c;font-style:italic}
-textarea{min-height:90px;resize:vertical;border:1px solid rgba(91,111,85,.32);padding:10px 12px}
-input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 1px 0 var(--sage-d)}
-.stepper{display:inline-flex;align-items:center;border:1px solid rgba(91,111,85,.35);background:rgba(255,255,255,.75)}
-.stepper button{width:44px;height:44px;border:0;background:none;font-size:20px;color:var(--ink2);cursor:pointer}
-.stepper output{min-width:36px;text-align:center;font-family:var(--serif);font-size:19px;font-variant-numeric:tabular-nums}
-.err{color:#8a3b2e;font-family:var(--serif);font-size:15px;margin-top:6px;min-height:1em}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:26px;border:0;cursor:pointer;
-  background:var(--sage-d);color:#f7f2e9;font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.22em;
-  font-size:12px;padding:16px 18px;text-decoration:none}
-.btn:hover{background:#344b39}
-.btn.ghost{background:transparent;color:var(--sage-d);border:1px solid var(--sage-d)}
+input[type=text]{width:100%;font-family:var(--serif);font-size:18px;color:var(--ink2);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:15px 16px}
+input::placeholder{color:#b99aa1;font-style:italic}
+input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 3px rgba(164,69,89,.12)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;display:block;cursor:pointer}
+.tile input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.tile span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:72px;padding:10px 8px;border:1.5px solid var(--line);border-radius:14px;
+  background:#fff;font-family:var(--serif);font-weight:600;font-size:16.5px;line-height:1.25;color:var(--ink2);transition:background .25s,color .25s,border-color .25s}
+.tile input:checked+span{background:var(--sage-d);border-color:var(--sage-d);color:#fff8f3}
+.tile input:focus-visible+span{outline:2px solid var(--sage);outline-offset:3px}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.stepper button{width:48px;height:46px;border:0;background:none;font-size:20px;color:var(--ink2);cursor:pointer}
+.stepper output{min-width:40px;text-align:center;font-family:var(--serif);font-size:19px;font-variant-numeric:tabular-nums}
+.err{color:#b03a48;font-family:var(--serif);font-size:15px;margin-top:6px;min-height:1em}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:28px;border:0;cursor:pointer;border-radius:12px;
+  background:var(--sage-d);color:#fff8f3;font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.22em;
+  font-size:13px;padding:18px 18px;text-decoration:none}
+.btn:hover{background:#742b3c}
+.btn.ghost{background:transparent;color:var(--sage-d);border:1.5px solid var(--sage-d)}
 .next{text-align:center}
 .next .ital{margin-top:8px}
 .linkbtn{background:none;border:0;cursor:pointer;margin-top:16px;font-family:var(--serif);font-weight:600;text-transform:uppercase;
   letter-spacing:.2em;font-size:11px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:8px}
 
 /* closing */
-.s-close{min-height:88cqh}
-.s-close .mono-c{display:block;width:min(46cqw,190px);height:auto;margin:0 auto 6px}
+.s-close{min-height:88cqh;padding-bottom:calc(5cqh + clamp(92px,29cqw,140px) * 1.64)}
+.s-close .pd{bottom:0;z-index:1}
+.s-close .pd.l{left:-3cqw}.s-close .pd.r{right:-3cqw}
+.s-close .mono-c{font-size:clamp(76px,25cqw,104px);margin:0 auto 12px}
 .s-close .title{font-size:clamp(46px,13cqw,58px)}
 .s-close .date-c{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.3em;font-size:12px;color:var(--ink2);margin-top:12px}
 .s-close .ital{font-size:20px;margin-top:6px}
 .hero>*{opacity:0;transform:translateY(10px)}
-.bism{font-family:var(--arabic);font-size:min(2.4cqh,5.4cqw);color:#2b373d;direction:rtl;line-height:1.4;margin-top:1cqh;
+.bism{font-family:var(--arabic);font-size:min(2.4cqh,5.4cqw);color:#a44559;direction:rtl;line-height:1.4;margin-top:1cqh;
   text-shadow:0 0 12px rgba(255,255,255,.95)}
-.mono{font-family:var(--script);font-size:min(6.6cqh,15cqw);line-height:1;color:var(--ink-soft);
+.mono{font-family:var(--script);font-size:min(6.6cqh,15cqw);line-height:1;color:var(--burg);
   position:relative;width:1.6em;height:1.15em;margin-top:.6cqh}
 .mono span{position:absolute;top:0}
 .mono span:first-child{left:.12em}
 .mono span:last-child{left:.52em;top:.12em}
-.names{font-family:var(--script);font-size:min(6.2cqh,13.5cqw);line-height:1.15;color:#2f3c43;margin-top:.6cqh;white-space:nowrap;
+.names{font-family:var(--script);font-size:min(6.2cqh,13.5cqw);line-height:1.15;color:#a44559;margin-top:.6cqh;white-space:nowrap;
   text-shadow:0 0 14px rgba(255,255,255,.9)}
 .names i{font-style:normal;font-size:.7em;padding:0 .12em}
 .caps{font-family:var(--serif);font-weight:700;text-transform:uppercase;letter-spacing:.15em;
-  font-size:min(1.4cqh,3.05cqw);line-height:1.7;color:#1f2a30}
+  font-size:min(1.4cqh,3.05cqw);line-height:1.7;color:#8a3347}
 .hero .caps{text-shadow:0 0 8px rgba(255,255,255,.95)}
 .req{margin-top:1cqh;letter-spacing:.11em}
 .date{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:3.5cqw;width:min(76cqw,320px);margin-top:1.5cqh}
-.date .side{font-family:var(--serif);font-weight:700;letter-spacing:.16em;font-size:min(1.6cqh,3.5cqw);color:#1f2a30;
-  border-top:1px solid #6f7b80;border-bottom:1px solid #6f7b80;padding:.45cqh 0;text-shadow:0 0 8px rgba(255,255,255,.95)}
-.date .day{font-family:var(--serif);font-weight:500;font-size:min(6.4cqh,14cqw);line-height:1;color:#1f2a30;text-shadow:0 0 12px rgba(255,255,255,.95)}
+.date .side{font-family:var(--serif);font-weight:700;letter-spacing:.16em;font-size:min(1.6cqh,3.5cqw);color:#8a3347;
+  border-top:1px solid #c99b7a;border-bottom:1px solid #c99b7a;padding:.45cqh 0;text-shadow:0 0 8px rgba(255,255,255,.95)}
+.date .day{font-family:var(--serif);font-weight:500;font-size:min(6.4cqh,14cqw);line-height:1;color:#a44559;text-shadow:0 0 12px rgba(255,255,255,.95)}
 .weekday{margin-top:.3cqh}
-.held{margin-top:1.2cqh}
-.venue{font-family:var(--script);font-size:min(4.1cqh,9cqw);line-height:1.25;color:#2f3c43;text-shadow:0 0 12px rgba(255,255,255,.95)}
+.tw{margin-top:.4cqh}
+.time{margin-top:.2cqh;letter-spacing:.2em}
+.venue{margin-top:1.4cqh;font-family:var(--script);font-size:min(4.1cqh,9cqw);line-height:1.25;color:#a44559;text-shadow:0 0 12px rgba(255,255,255,.95)}
 .addr{font-size:min(1.3cqh,2.9cqw)}
-.time{margin-top:.6cqh}
 
-/* ---------- gates scene ---------- */
-#gates{z-index:2;opacity:0;pointer-events:none;overflow:hidden}
-#gVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;
-  transform-origin:50% 62%;background:var(--paper);will-change:transform}
-.dim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,34,30,.62) 0%,rgba(28,34,30,.28) 42%,rgba(28,34,30,.12) 100%);opacity:0}
-.intro{position:absolute;left:0;right:0;top:6.5cqh;display:flex;flex-direction:column;align-items:center;
-  color:var(--white);text-align:center;text-shadow:0 1px 14px rgba(0,0,0,.25)}
-.intro>*{opacity:0}
-.intro .caps{color:var(--white);letter-spacing:.3em;font-size:min(1.35cqh,3cqw)}
-.intro .nm{font-family:var(--script);font-size:min(5.8cqh,13cqw);line-height:1.15}
-.intro .mono-img{height:min(8.5cqh,20cqw);margin:.4cqh 0;filter:brightness(1.25) drop-shadow(0 0 10px rgba(255,255,255,.35))}
-
-.petal{position:absolute;top:-4cqh;width:var(--w);height:calc(var(--w)*1.25);pointer-events:none;
-  border-radius:62% 38% 58% 42% / 66% 52% 48% 34%;
-  background:radial-gradient(circle at 30% 30%,#fffdf8,#f3ecdc 60%,#e7dcc3);
-  box-shadow:0 2px 4px rgba(90,80,50,.12)}
-.petal.leaf{border-radius:50% 0 50% 0;background:linear-gradient(135deg,#a8b89a,#7f9070)}
+.terrace{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;max-width:none;display:block}
+.gwrap{position:absolute;inset:0}
 
 /* ---------- envelope scene ---------- */
 #env{z-index:3;perspective:1000px;perspective-origin:50% var(--ey,40%);cursor:pointer;overflow:hidden}
 #env .paper{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ep{position:absolute;left:var(--ex);top:var(--ey);width:var(--ew);height:var(--eh)}
 .e-back{background:var(--paper-in);border-radius:4px;
-  box-shadow:0 22px 42px rgba(70,58,35,.20),0 3px 8px rgba(70,58,35,.12)}
-.e-back::after{content:"";position:absolute;inset:0;border-radius:4px;box-shadow:inset 0 0 22px rgba(120,100,60,.18)}
+  box-shadow:0 22px 42px rgba(122,63,74,.22),0 3px 8px rgba(122,63,74,.12)}
+.e-back::after{content:"";position:absolute;inset:0;border-radius:4px;box-shadow:inset 0 0 22px rgba(164,69,89,.14)}
 .card{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;overflow:hidden;
-  box-shadow:0 0 0 1px rgba(150,130,90,.25);will-change:transform,clip-path}
+  box-shadow:0 0 0 1px rgba(201,155,122,.4);will-change:transform,clip-path}
 .card img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
 .e-pocket svg,.e-flap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:block}
 .e-flap{height:calc(var(--eh)*.757);transform-origin:50% 0;transform-style:preserve-3d}
@@ -242,24 +234,24 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 .seal{position:absolute;left:50%;top:91%;width:calc(var(--ew)*.24);aspect-ratio:1;margin-left:calc(var(--ew)*-.12);
   margin-top:calc(var(--ew)*-.12);transform-style:preserve-3d}
 .seal-in{position:absolute;inset:0;transform:translateZ(2px)}
-.seal-in img{width:100%;height:100%;display:block;filter:drop-shadow(0 3px 4px rgba(50,60,30,.28))}
+.seal-in img{width:100%;height:100%;display:block;filter:drop-shadow(0 3px 4px rgba(90,25,40,.35))}
 .seal-in svg{position:absolute;inset:0;width:100%;height:100%}
-.env-text{position:absolute;left:0;right:0;top:calc(var(--ey) + var(--eh) + 5cqh);text-align:center;color:#76837a;
+.env-text{position:absolute;left:0;right:0;top:calc(var(--ey) + var(--eh) + 5cqh);text-align:center;color:#a44559;
   padding:0 max(16px,6cqw)}
 .env-text .s{font-family:var(--script);font-size:min(4.2cqh,9cqw);line-height:1.2}
 .open-btn{margin-top:2.8cqh;font-family:var(--serif);font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  font-size:min(1.45cqh,3.1cqw);color:#4f6b57;background:rgba(255,253,248,.75);border:1px solid rgba(63,90,69,.38);
+  font-size:min(1.45cqh,3.1cqw);color:#a44559;background:rgba(255,248,243,.8);border:1px solid rgba(164,69,89,.42);
   border-radius:999px;padding:1.1cqh 5.2cqw;cursor:pointer;-webkit-appearance:none;appearance:none;
-  box-shadow:0 2px 10px rgba(60,80,60,.12);animation:pulse 2.4s ease-in-out infinite}
+  box-shadow:0 2px 10px rgba(164,69,89,.14);animation:pulse 2.4s ease-in-out infinite}
 .open-btn:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
 .idle .seal-in{animation:breathe 2.4s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.35}}
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
 
 #music{position:absolute;z-index:9;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
-  width:46px;height:46px;border-radius:50%;border:1px solid rgba(63,90,69,.22);background:rgba(255,253,248,.82);color:#3f5a45;
+  width:46px;height:46px;border-radius:50%;border:1px solid rgba(164,69,89,.26);background:rgba(255,248,243,.86);color:#a44559;
   display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  box-shadow:0 4px 14px rgba(40,50,40,.12)}
+  box-shadow:0 4px 14px rgba(122,63,74,.14)}
 #music[hidden]{display:none}
 #music svg{width:20px;height:20px}
 #music .off{display:none}
@@ -268,9 +260,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 #music:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
 
 /* final state for reduced motion */
-.final #env,.final #gates{display:none}
+.final #env{display:none}
 .final #mainBg{transform:none}
-.final #heroVid,.final #heroFirst{display:none}
 .final .hero>*{opacity:1;transform:none}
 .final .scroll-hint{opacity:1}
 </style>
@@ -282,21 +273,21 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
     <defs>
       <filter id="tex" x="-5%" y="-5%" width="110%" height="110%">
         <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7" result="n"/>
-        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .42  0 0 0 0 .36  0 0 0 0 .25  0 0 0 .09 0" result="d"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .58  0 0 0 0 .36  0 0 0 0 .38  0 0 0 .09 0" result="d"/>
         <feComposite in="d" in2="SourceAlpha" operator="in" result="dn"/>
         <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dn"/></feMerge>
       </filter>
       <filter id="flapShadow" x="-10%" y="-10%" width="120%" height="130%">
-        <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#5c4a2a" flood-opacity=".22"/>
+        <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#7a3f4a" flood-opacity=".22"/>
       </filter>
       <linearGradient id="gSide" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#f1ebdf"/><stop offset="1" stop-color="#f6f1e7"/>
+        <stop offset="0" stop-color="#f6dcd5"/><stop offset="1" stop-color="#fae7e1"/>
       </linearGradient>
       <linearGradient id="gBottom" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#f7f2e8"/><stop offset="1" stop-color="#efe8da"/>
+        <stop offset="0" stop-color="#fbe9e3"/><stop offset="1" stop-color="#f3d6cf"/>
       </linearGradient>
       <linearGradient id="gFlap" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#f3ede1"/><stop offset="1" stop-color="#f8f4eb"/>
+        <stop offset="0" stop-color="#f8e1da"/><stop offset="1" stop-color="#fcece7"/>
       </linearGradient>
     </defs>
   </svg>
@@ -305,24 +296,19 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
   <main class="scene" id="main" aria-label="Invitation">
    <section class="hero-sec">
     <div id="mainBg">
-      <img src="assets/main.webp" alt="">
-      <img id="heroFirst" src="assets/hero-first.webp" alt="">
-      <video id="heroVid" muted playsinline preload="auto" disablepictureinpicture>
-        <source src="assets/hero.mp4" type="video/mp4">
-        <source src="assets/hero.webm" type="video/webm">
-      </video>
+      <img class="terrace" src="assets/hero-terrace.webp" width="941" height="1671" alt="">
     </div>
     <div class="hero" id="hero">
-      <img class="mono-img" src="assets/monogram.webp" alt="">
+      <div class="mono" aria-hidden="true"><span>A</span><span>A</span></div>
       <div class="bism" lang="ar">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <div class="caps tw">Together with their families</div>
       <h1 class="names" style="margin-bottom:0;font-weight:400">Asna <i>&amp;</i> Anas</h1>
-      <div class="caps req">Together with their families<br>request the honour of your presence<br>at their Nikah on</div>
+      <div class="caps req">Request the honour of your presence<br>at their Nikah</div>
       <div class="date"><span class="side">DECEMBER</span><span class="day">12</span><span class="side">2026</span></div>
       <div class="caps weekday">Saturday</div>
-      <div class="caps held">To be held at</div>
+      <div class="caps time">04:00 PM</div>
       <div class="venue">The Farm Fit Resort</div>
-      <div class="caps addr">Chembothara, Meppadi, Wayanad</div>
-      <div class="caps time">At four o'clock in the evening</div>
+      <div class="caps addr">Chembothara, Meppadi<br>Wayanad, Kerala</div>
     </div>
     <div class="scroll-hint" id="hint">Scroll to see more
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
@@ -353,8 +339,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
           <h2 class="title" id="t-cel">The Celebrations</h2>
         </div>
         <div class="ev-card" data-reveal>
-          <img class="deco fl tl" data-bloom src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
-          <img class="deco fl br" data-bloom src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
+          <img class="deco cel-bq" data-rise src="assets/bouquet-ivory.webp" width="760" height="517" alt="" loading="lazy" decoding="async">
           <div class="script-md">Nikah Ceremony</div>
           <span class="orn" aria-hidden="true"></span>
           <div class="serif-lg">The Farm Fit Resort</div>
@@ -369,8 +354,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 
     <!-- families -->
     <section class="sec s-fam" aria-labelledby="t-fam">
-      <img class="deco fl tl" data-bloom data-parallax="6" src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
-      <img class="deco fl br" data-bloom data-parallax="6" src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
+      <img class="deco fb l" data-bloom src="assets/col-bouquet.webp" width="554" height="505" alt="" loading="lazy" decoding="async">
+      <img class="deco fb r" data-bloom src="assets/col-bouquet-r.webp" width="554" height="505" alt="" loading="lazy" decoding="async">
       <div class="c">
         <h2 class="title" id="t-fam" data-reveal>With Their Families</h2>
         <span class="orn" aria-hidden="true" data-reveal></span>
@@ -396,13 +381,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
           <div class="sub">We kindly request you to come in<br>powder blue or off-white</div>
         </div>
         <div class="dress-grid">
-          <div class="dc" data-reveal>
-            <img src="assets/dress-blue.webp" width="760" height="1013" alt="Powder-blue silk with blue hydrangeas and white roses" loading="lazy" decoding="async">
-            <div class="txt"><div class="script-md">Powder Blue</div></div>
+          <div class="dc blue" data-reveal>
+            <div class="script-md">Powder Blue</div>
           </div>
-          <div class="dc" data-reveal>
-            <img src="assets/dress-ivory.webp" width="760" height="1013" alt="Ivory silk with white roses" loading="lazy" decoding="async">
-            <div class="txt"><div class="script-md">Off-White</div></div>
+          <div class="dc ivory" data-reveal>
+            <div class="script-md">Off-White</div>
           </div>
         </div>
       </div>
@@ -427,19 +410,22 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 
     <!-- rsvp -->
     <section class="sec s-rsvp" aria-labelledby="t-rsvp">
-      <img class="deco urn l" data-bloom src="assets/urn.webp" width="420" height="430" alt="" loading="lazy" decoding="async">
-      <img class="deco urn r flip" data-bloom src="assets/urn.webp" width="420" height="430" alt="" loading="lazy" decoding="async">
       <div class="c">
-        <div data-reveal>
+        <div class="form-wrap" data-reveal>
           <h2 class="title" id="t-rsvp">RSVP</h2>
           <div class="sub">The favour of a reply<br>is kindly requested</div>
-        </div>
-        <div class="form-wrap" data-reveal>
           <form id="rsvpForm" novalidate>
-            <fieldset class="field" style="margin-top:0">
+            <div class="field">
+              <label for="rName">Full name <span class="req-mark">*</span></label>
+              <input type="text" id="rName" name="name" autocomplete="name" placeholder="Your full name">
+              <div class="err" id="nameErr"></div>
+            </div>
+            <fieldset class="field">
               <legend>Will you be joining us? <span class="req-mark">*</span></legend>
-              <label class="radio"><input type="radio" name="attend" id="attYes" value="yes" checked> Delighted to accept</label>
-              <label class="radio"><input type="radio" name="attend" id="attNo" value="no"> Regretfully unable to attend</label>
+              <div class="tiles">
+                <label class="tile"><input type="radio" name="attend" id="attYes" value="yes" checked><span>Delighted<br>to accept</span></label>
+                <label class="tile"><input type="radio" name="attend" id="attNo" value="no"><span>Regretfully<br>unable to attend</span></label>
+              </div>
             </fieldset>
             <div class="field" id="guestsField">
               <span class="fhead" id="guestsLabel">Number of guests</span>
@@ -449,26 +435,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
                 <button type="button" id="gPlus" aria-label="More guests">+</button>
               </div>
             </div>
-            <div class="field">
-              <label for="rName">Full name <span class="req-mark">*</span></label>
-              <input type="text" id="rName" name="name" autocomplete="name" placeholder="Your full name">
-              <div class="err" id="nameErr"></div>
-            </div>
-            <div class="field" style="margin-top:6px">
-              <label for="rEmail">Email address</label>
-              <input type="email" id="rEmail" name="email" autocomplete="email" placeholder="name@example.com">
-              <div class="err" id="emailErr"></div>
-            </div>
-            <fieldset class="field" id="kidsField" style="margin-top:6px">
-              <legend>Will any children be accompanying you?</legend>
-              <label class="radio"><input type="radio" name="kids" id="kidsYes" value="yes"> Yes</label>
-              <label class="radio"><input type="radio" name="kids" id="kidsNo" value="no" checked> No</label>
-            </fieldset>
-            <div class="field">
-              <label for="rMsg">A message for the couple</label>
-              <textarea id="rMsg" name="message" placeholder="We would be delighted to hear from you."></textarea>
-            </div>
-            <button class="btn" type="submit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Submit response</button>
+            <button class="btn" type="submit">Submit RSVP</button>
           </form>
           <div class="next" id="thanks" hidden>
             <div class="script-md" id="thanksTitle">One last step</div>
@@ -483,8 +450,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 
     <!-- closing -->
     <section class="sec s-close">
+      <img class="deco pd l" data-rise src="assets/urn-pedestal-l.webp" width="480" height="785" alt="" loading="lazy" decoding="async">
+      <img class="deco pd r" data-rise src="assets/urn-pedestal-r.webp" width="480" height="785" alt="" loading="lazy" decoding="async">
       <div class="c">
-        <img class="mono-c" id="closeMono" src="assets/monogram.webp" width="700" height="637" alt="" loading="lazy" decoding="async">
+          <div class="mono mono-c" id="closeMono" aria-hidden="true"><span>A</span><span>A</span></div>
         <div data-reveal>
           <div class="title">Asna &amp; Anas</div>
           <span class="orn" aria-hidden="true"></span>
@@ -496,27 +465,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
    </div>
   </main>
 
-  <!-- GATES -->
-  <section class="scene" id="gates" aria-hidden="true">
-    <video id="gVid" poster="assets/gates.webp" muted playsinline preload="auto" disablepictureinpicture>
-      <source src="assets/gates.mp4" type="video/mp4">
-      <source src="assets/gates.webm" type="video/webm">
-    </video>
-    <div class="dim" id="dim"></div>
-    <div class="intro" id="intro">
-      <div class="caps">We are getting married</div>
-      <div class="nm">Asna</div>
-      <img class="mono-img" src="assets/monogram.webp" alt="">
-      <div class="nm">Anas</div>
-    </div>
-    <div id="petals"></div>
-  </section>
-
   <!-- ENVELOPE -->
   <section class="scene idle" id="env" role="button" tabindex="0" aria-label="Open the invitation">
-    <img class="paper" src="assets/paper.webp" alt="">
+    <img class="paper" src="assets/paper-blush.webp" alt="">
     <div class="ep e-back" id="eBack"></div>
-    <div class="card" id="card"><img src="assets/gates.webp" alt=""></div>
+    <div class="card" id="card"><div class="gwrap" data-gate></div></div>
     <div class="ep e-pocket" id="ePocket">
       <svg viewBox="0 0 600 420" preserveAspectRatio="none">
         <g filter="url(#tex)">
@@ -524,8 +477,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
           <path d="M600 0 L300 300 L600 420 Z" fill="url(#gSide)"/>
           <path d="M0 420 L300 300 L600 420 Z" fill="url(#gBottom)" filter="url(#flapShadow)"/>
         </g>
-        <path d="M0 0 L300 300 L600 0" fill="none" stroke="#fffdf8" stroke-width="1.6" opacity=".9"/>
-        <path d="M2 418 L300 302 L598 418" fill="none" stroke="#d9cfbb" stroke-width="1" opacity=".8"/>
+        <path d="M0 0 L300 300 L600 0" fill="none" stroke="#fff8f3" stroke-width="1.6" opacity=".9"/>
+        <path d="M2 418 L300 302 L598 418" fill="none" stroke="#dcb3ae" stroke-width="1" opacity=".8"/>
       </svg>
     </div>
     <div class="ep e-flap" id="eFlap">
@@ -533,25 +486,25 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
         <svg viewBox="0 0 600 318" preserveAspectRatio="none">
           <path d="M0 0 H600 L318 306 Q300 320 282 306 Z" fill="url(#gFlap)" filter="url(#flapShadow)"/>
           <path d="M0 0 H600 L318 306 Q300 320 282 306 Z" fill="url(#gFlap)" filter="url(#tex)"/>
-          <path d="M28 10 H572 L312 286 Q300 296 288 286 Z" fill="none" stroke="#e4dac6" stroke-width="1.2"/>
-          <path d="M30 12 H570 L311 287" fill="none" stroke="#fffdf8" stroke-width="1" opacity=".9"/>
+          <path d="M28 10 H572 L312 286 Q300 296 288 286 Z" fill="none" stroke="#e6c3bd" stroke-width="1.2"/>
+          <path d="M30 12 H570 L311 287" fill="none" stroke="#fff8f3" stroke-width="1" opacity=".9"/>
         </svg>
       </div>
       <div class="face back">
         <svg viewBox="0 0 600 318" preserveAspectRatio="none">
-          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="#ece4d3" filter="url(#tex)"/>
-          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="none" stroke="#e0d6c2" stroke-width="2"/>
+          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="#efcdc6" filter="url(#tex)"/>
+          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="none" stroke="#dfb8b2" stroke-width="2"/>
         </svg>
       </div>
       <div class="seal" id="seal">
         <div class="seal-in" id="sealIn">
-          <img src="assets/seal.webp" alt="">
+          <img src="assets/seal-burgundy.webp" alt="">
           <svg viewBox="0 0 100 100" aria-hidden="true">
             <g font-family="Pinyon Script, cursive" font-size="44" text-anchor="middle">
-              <text x="44" y="60" fill="#c3d2ab" opacity=".7">A</text>
-              <text x="56" y="67" fill="#c3d2ab" opacity=".7">A</text>
-              <text x="43" y="59" fill="#566b42">A</text>
-              <text x="55" y="66" fill="#566b42">A</text>
+              <text x="44" y="60" fill="#efc1c9" opacity=".7">A</text>
+              <text x="56" y="67" fill="#efc1c9" opacity=".7">A</text>
+              <text x="43" y="59" fill="#6f2535">A</text>
+              <text x="55" y="66" fill="#6f2535">A</text>
             </g>
           </svg>
         </div>
@@ -584,6 +537,10 @@ const CONFIG = {
 (() => {
   const $ = id => document.getElementById(id);
   const phone = $('phone'), env = $('env'), card = $('card');
+  /* the closed gates (garden, two doors, satin ribbon): one markup used inside the envelope card and in the gates scene */
+  const GATE_HTML = `<img class="terrace" src="assets/hero-terrace.webp" alt="">`;
+  document.querySelectorAll('[data-gate]').forEach(el => { el.innerHTML = GATE_HTML; });
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let G = {}, anims = [], timers = [], started = false, runId = 0;
 
@@ -608,30 +565,10 @@ const CONFIG = {
   }
   const at = (ms, fn) => timers.push(setTimeout(fn, ms));
 
-  function petals() {
-    const box = $('petals');
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'petal' + (i % 6 === 0 ? ' leaf' : '');
-      const w = 9 + Math.random() * 9;
-      p.style.setProperty('--w', w + 'px');
-      p.style.left = (Math.random() * 100) + '%';
-      box.appendChild(p);
-      const drift = (Math.random() - .5) * 120, rot = (Math.random() - .5) * 720;
-      A(p, [
-        { transform: 'translate(0,0) rotate(0deg)', opacity: 0 },
-        { opacity: 1, offset: .1 },
-        { transform: `translate(${drift}px, ${G.H * 1.1}px) rotate(${rot}deg)`, opacity: .9 }
-      ], { duration: 5200 + Math.random() * 2600, delay: Math.random() * 1600, easing: 'cubic-bezier(.3,.2,.6,1)' });
-    }
-  }
-
   function play() {
     if (started) return;
     started = true;
     startMusic();
-    { const hv = $('heroVid'); hv.muted = true; const pr = hv.play(); // warm up the decoder, then park on the first frame
-      if (pr && pr.then) pr.then(() => { hv.pause(); try { hv.currentTime = 0; } catch (_) {} }, () => {}); }
     env.classList.remove('idle');
     env.style.pointerEvents = 'none';
     const ease = 'cubic-bezier(.65,0,.35,1)';
@@ -649,83 +586,22 @@ const CONFIG = {
     A(card, [{ transform: G.cardFrom }, { transform: 'translate(0px,0px) scale(1)' }], { duration: 1300, delay: T2 + 450, easing: ease });
     A(card, [{ clipPath: G.clipFrom }, { clipPath: `inset(0px 0px 0px 0px round 0px)` }], { duration: 800, delay: T2 + 450, easing: 'cubic-bezier(.4,0,.6,1)' });
 
-    // 3. swap to the gates video (its first frame is the card), then play it
-    const T3 = T2 + 1750;
-    at(T3, startVideo);
+      // 3. the card now fills the screen and shows the hero artwork: dissolve straight into the hero
+    at(T2 + 1750, revealHero);
   }
 
-  // Video timeline (ms from when it starts playing): ribbon falls ~3.0s, gates open ~4.5s, ends 8.0s
-  function startVideo() {
-    const v = $('gVid'), run = runId;
-    let finished = false;
-    const finish = () => { if (finished || run !== runId) return; finished = true; finale(); };
-    const intro = () => {
-      A($('dim'), [{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 200 });
-      [...$('intro').children].forEach((el, i) =>
-        A(el, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: 400 + i * 280 }));
-      A($('intro'), [{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 3700 });
-      A($('dim'), [{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 3700 });
-    };
-    v.onended = finish;
-    try { v.currentTime = 0; } catch (_) {}
-    const p = v.play();
-    // show the gates only once the video has painted a real frame, so there is no flash between the card and the video
-    let swapped = false;
-    const swap = () => { if (swapped || run !== runId) return; swapped = true; $('gates').style.opacity = '1'; env.style.opacity = '0'; };
-    if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(swap); else v.addEventListener('playing', swap, { once: true });
-    at(700, swap);
-    const go = () => { if (run !== runId) return; intro(); at(2900, petals); at(9500, finish); };
-    if (p && p.then) p.then(go, () => { intro(); at(4200, finish); });
-    else go();
-  }
-
-  // 4. walk through the open gates; the invitation appears
-  function finale() {
-    $('main').classList.add('show'); // the invitation stays out of sight until the gates have opened
-    A($('gVid'), [{ transform: 'scale(1)' }, { transform: 'scale(2.3)' }], { duration: 1500, easing: 'cubic-bezier(.5,0,.8,.5)' });
-    A($('gates'), [{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 600 });
-    // hero video starts only once the gates video has fully faded away (no zoom on the hero, so no shake)
-    const hv = $('heroVid'), run = runId;
-    hv.onended = null; // the last frame simply holds, perfectly still
-    at(1600, () => {
-      if (run !== runId) return;
-      const show = () => { if (run === runId) hv.classList.add('live'); };
-      try { hv.currentTime = 0; } catch (_) {}
-      const p = hv.play();
-      if (hv.requestVideoFrameCallback) hv.requestVideoFrameCallback(show); else hv.addEventListener('playing', show, { once: true });
-      if (p && p.catch) p.catch(() => { $('heroFirst').style.display = 'none'; }); // no playback: show the finished still instead
-    });
-    const T6 = 1200;
+  function revealHero() {
+    const run = runId;
+    $('main').classList.add('show');
+    A(env, [{ opacity: 1 }, { opacity: 0 }], { duration: 900 });
+    at(1000, () => { if (run === runId) env.style.display = 'none'; });
+    const T6 = 500;
     [...$('hero').children].forEach((el, i) =>
       A(el, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: T6 + i * 110, easing: 'ease-out' }));
     A($('hint'), [{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: T6 + 1500 });
     at(T6 + 300, () => { $('main').classList.add('open'); });
-    // the opening scenes are finished: take them out completely so nothing can sit over the page and swallow a swipe
-    at(2600, () => { if (run === runId) { $('gates').style.display = 'none'; env.style.display = 'none'; } });
     at(T6 + 3200, initScroll);
   }
-
-  /* ---------- scroll safety net: if a browser (some Safari builds) refuses to scroll the panel natively, drive it by hand ---------- */
-  (function () {
-    const m = $('main'); let y0 = 0, st = 0, n = 0, manual = false, last = 0, lastT = 0, vel = 0, raf = 0;
-    m.addEventListener('touchstart', e => { cancelAnimationFrame(raf); y0 = last = e.touches[0].clientY; st = m.scrollTop; n = 0; manual = false; vel = 0; lastT = e.timeStamp; }, { passive: true });
-    m.addEventListener('touchmove', e => {
-      if (!m.classList.contains('open')) return;
-      const y = e.touches[0].clientY; n++;
-      if (!manual && n >= 5 && Math.abs(y - y0) > 30 && e.cancelable && Math.abs(m.scrollTop - st) < 1) manual = true;
-      if (manual) {
-        if (e.cancelable) e.preventDefault();
-        m.scrollTop = st + (y0 - y);
-        const dt = e.timeStamp - lastT; if (dt > 0) vel = (last - y) / dt; last = y; lastT = e.timeStamp;
-      }
-    }, { passive: false });
-    m.addEventListener('touchend', () => {
-      if (!manual) return;
-      let v = vel * 16;
-      const step = () => { if (Math.abs(v) < 0.5) return; m.scrollTop += v; v *= 0.95; raf = requestAnimationFrame(step); };
-      raf = requestAnimationFrame(step);
-    }, { passive: true });
-  })();
 
   /* ---------- countdown: 12 December 2026, 4:00 PM, Asia/Kolkata ---------- */
   const TARGET = new Date('2026-12-12T16:00:00+05:30').getTime();
@@ -753,6 +629,8 @@ const CONFIG = {
       gsap.from(el, { y: 20, opacity: 0, duration: 1.1, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
     gsap.utils.toArray('[data-bloom]').forEach(el =>
       gsap.from(el, { opacity: 0, duration: 1.8, ease: 'sine.out', scrollTrigger: { trigger: el, start: 'top 95%', once: true } }));
+    gsap.utils.toArray('[data-rise]').forEach(el =>
+      gsap.from(el, { y: 18, opacity: 0, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 98%', once: true } }));
     gsap.utils.toArray('[data-parallax]').forEach(el => {
       const amt = +el.dataset.parallax || 4;
       gsap.fromTo(el, { yPercent: -amt / 2 }, { yPercent: amt / 2, ease: 'none',
@@ -769,27 +647,19 @@ const CONFIG = {
   const setGuests = n => { guests = Math.min(10, Math.max(1, n)); $('gCount').textContent = guests; };
   $('gMinus').addEventListener('click', () => setGuests(guests - 1));
   $('gPlus').addEventListener('click', () => setGuests(guests + 1));
-  const syncAttend = () => { $('guestsField').hidden = $('kidsField').hidden = !$('attYes').checked; };
+  const syncAttend = () => { $('guestsField').hidden = !$('attYes').checked; };
   form.addEventListener('change', syncAttend);
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const name = $('rName').value.trim(), email = $('rEmail').value.trim();
-    let bad = false;
+    const name = $('rName').value.trim();
     $('nameErr').textContent = name ? '' : 'Please enter your name so the family knows who is replying.';
-    if (!name) bad = true;
-    const okEmail = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    $('emailErr').textContent = okEmail ? '' : 'Please check the email address, for example name@example.com.';
-    if (!okEmail) bad = true;
-    if (bad) { (name ? $('rEmail') : $('rName')).focus(); return; }
-    const yes = $('attYes').checked, msg = $('rMsg').value.trim();
+    if (!name) { $('rName').focus(); return; }
+    const yes = $('attYes').checked;
     replyText = [
       'RSVP for the Nikah of Asna & Anas (12 December 2026)',
       'Name: ' + name,
-      yes ? 'Attending: Yes, ' + guests + (guests === 1 ? ' guest' : ' guests') : 'Attending: No, regretfully',
-      yes ? 'Children coming: ' + ($('kidsYes').checked ? 'Yes' : 'No') : '',
-      email ? 'Email: ' + email : '',
-      msg ? 'Message: ' + msg : ''
-    ].filter(Boolean).join('\n');
+      yes ? 'Attending: Yes, ' + guests + (guests === 1 ? ' guest' : ' guests') : 'Attending: No, regretfully'
+    ].join('\n');
     $('thanksTitle').textContent = 'One last step, ' + name.split(' ')[0];
     const wa = $('waLink');
     if (CONFIG.whatsapp) {
@@ -836,13 +706,10 @@ const CONFIG = {
   function reset() {
     anims.forEach(a => a.cancel()); anims = [];
     timers.forEach(clearTimeout); timers = [];
-    $('petals').replaceChildren();
     $('main').classList.remove('open', 'show'); $('main').scrollTop = 0;
     runId++;
-    const v = $('gVid'); v.pause(); v.onended = null; try { v.currentTime = 0; } catch (_) {}
-    const hv = $('heroVid'); hv.pause(); hv.classList.remove('live'); $('heroFirst').style.display = ''; try { hv.currentTime = 0; } catch (_) {}
     started = false;
-    env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; $('gates').style.display = ''; $('gates').style.opacity = ''; env.style.opacity = '';
+    env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; env.style.opacity = '';
     layout();
   }
 
