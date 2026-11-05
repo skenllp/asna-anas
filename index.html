@@ -53,8 +53,9 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .scene{position:absolute;inset:0}
 
 /* ---------- main screen ---------- */
-#main{z-index:1;overflow:hidden;overscroll-behavior:contain;scrollbar-width:none}
+#main{z-index:1;visibility:hidden;overflow:hidden;overscroll-behavior:contain;scrollbar-width:none}
 #main::-webkit-scrollbar{display:none}
+#main.show,.final #main{visibility:visible}
 #main.open{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 .hero-sec{position:relative;height:100cqh;overflow:hidden}
 .hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9cqh;
@@ -81,8 +82,8 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .sections img{height:auto}
 .sections{--bg:#f7f2e9;--sage:#5b6f55;--sage-d:#3f5a45;--ink2:#38443d;--muted:#5f6b63;--gold:#b59b6a;--line:rgba(91,111,85,.32);
   background:var(--bg) url("assets/paper-warm.webp") center top/100% auto repeat-y;color:var(--ink2);overflow:hidden;position:relative}
-.sec{position:relative;min-height:100cqh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:12cqh max(24px,8cqw)}
+.sec{position:relative;min-height:84cqh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:7cqh max(24px,8cqw)}
 .sec>.c{position:relative;z-index:2;width:100%;max-width:360px}
 .title{font-family:var(--script);font-weight:400;font-size:clamp(44px,12.5cqw,54px);line-height:1.1;color:var(--sage);margin:0;text-wrap:balance}
 .sub{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.24em;font-size:11px;line-height:1.85;color:var(--muted);margin-top:12px;text-wrap:balance}
@@ -99,8 +100,8 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .flip{transform:scaleX(-1)}
 
 /* hero -> countdown: drapery, columns and candles continue the venue */
-.s-count{min-height:108cqh;padding:0}
-.s-count .col{top:12cqh;height:min(70cqh,150cqw);width:auto;z-index:1}
+.s-count{min-height:80cqh;padding:0}
+.s-count .col{top:2cqh;height:min(70cqh,150cqw);width:auto;z-index:1}
 .s-count .col.l{left:calc(-1 * min(3cqw, 2cqh))}
 .s-count .col.r{right:calc(-1 * min(3cqw, 2cqh))}
 .s-count .c{max-width:none;padding:0 24cqw;margin-top:-6cqh}
@@ -176,7 +177,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
   letter-spacing:.2em;font-size:11px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:8px}
 
 /* closing */
-.s-close{min-height:100cqh}
+.s-close{min-height:88cqh}
 .s-close .mono-c{display:block;width:min(46cqw,190px);height:auto;margin:0 auto 6px}
 .s-close .title{font-size:clamp(46px,13cqw,58px)}
 .s-close .date-c{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.3em;font-size:12px;color:var(--ink2);margin-top:12px}
@@ -677,6 +678,7 @@ const CONFIG = {
 
   // 4. walk through the open gates; the invitation appears
   function finale() {
+    $('main').classList.add('show'); // the invitation stays out of sight until the gates have opened
     A($('gVid'), [{ transform: 'scale(1)' }, { transform: 'scale(2.3)' }], { duration: 1500, easing: 'cubic-bezier(.5,0,.8,.5)' });
     A($('gates'), [{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 600 });
     // hero video starts only once the gates video has fully faded away (no zoom on the hero, so no shake)
@@ -719,10 +721,6 @@ const CONFIG = {
       let v = vel * 16;
       const step = () => { if (Math.abs(v) < 0.5) return; m.scrollTop += v; v *= 0.95; raf = requestAnimationFrame(step); };
       raf = requestAnimationFrame(step);
-    }, { passive: true });
-    m.addEventListener('wheel', e => {
-      if (!m.classList.contains('open')) return;
-      const t = m.scrollTop; requestAnimationFrame(() => { if (m.scrollTop === t) m.scrollTop = t + e.deltaY; });
     }, { passive: true });
   })();
 
@@ -836,7 +834,7 @@ const CONFIG = {
     anims.forEach(a => a.cancel()); anims = [];
     timers.forEach(clearTimeout); timers = [];
     $('petals').replaceChildren();
-    $('main').classList.remove('open'); $('main').scrollTop = 0;
+    $('main').classList.remove('open', 'show'); $('main').scrollTop = 0;
     runId++;
     const v = $('gVid'); v.pause(); v.onended = null; try { v.currentTime = 0; } catch (_) {}
     const hv = $('heroVid'); hv.pause(); hv.classList.remove('live'); $('heroFirst').style.display = ''; try { hv.currentTime = 0; } catch (_) {}
