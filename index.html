@@ -41,7 +41,7 @@
 }
 html{height:100%;box-sizing:border-box}
 *,*::before,*::after{box-sizing:inherit}
-body{height:100%;margin:0;background:var(--desk);color:var(--ink);font-family:var(--serif);
+body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:var(--ink);font-family:var(--serif);
   display:flex;align-items:center;justify-content:center;overflow:hidden}
 
 .phone{position:relative;width:100%;height:100%;overflow:hidden;background:var(--paper);
@@ -691,6 +691,8 @@ const CONFIG = {
       A(el, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: T6 + i * 110, easing: 'ease-out' }));
     A($('hint'), [{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: T6 + 1500 });
     at(T6 + 300, () => { $('main').classList.add('open'); });
+    // the opening scenes are finished: take them out completely so nothing can sit over the page and swallow a swipe
+    at(2600, () => { if (run === runId) { $('gates').style.display = 'none'; env.style.display = 'none'; } });
     at(T6 + 3200, initScroll);
   }
 
@@ -809,7 +811,7 @@ const CONFIG = {
     const v = $('gVid'); v.pause(); v.onended = null; try { v.currentTime = 0; } catch (_) {}
     const hv = $('heroVid'); hv.pause(); hv.classList.remove('live'); $('heroFirst').style.display = ''; try { hv.currentTime = 0; } catch (_) {}
     started = false;
-    env.classList.add('idle'); env.style.pointerEvents = '';
+    env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; $('gates').style.display = '';
     layout();
   }
 
