@@ -1,9 +1,24 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Asna & Anas</title>
+<meta name="description" content="You are invited to the Nikah of Asna & Anas on Saturday, 12 December 2026 at The Farm Fit Resort, Wayanad.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://asna-anas.vercel.app/">
+<meta property="og:site_name" content="Asna & Anas">
+<meta property="og:title" content="Asna & Anas · Nikah">
+<meta property="og:description" content="Saturday, 12 December 2026 · 4:00 PM · The Farm Fit Resort, Chembothara, Meppadi, Wayanad">
+<meta property="og:image" content="https://asna-anas.vercel.app/og-image.jpg">
+<meta property="og:image:secure_url" content="https://asna-anas.vercel.app/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Asna & Anas, Nikah on 12 December 2026 at The Farm Fit Resort, Wayanad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Asna & Anas · Nikah">
+<meta name="twitter:description" content="Saturday, 12 December 2026 · The Farm Fit Resort, Wayanad">
+<meta name="twitter:image" content="https://asna-anas.vercel.app/og-image.jpg">
+<meta name="theme-color" content="#f7f2e9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap">
@@ -83,12 +98,11 @@ body{height:100%;margin:0;background:var(--desk);color:var(--ink);font-family:va
 
 /* hero -> countdown: drapery, columns and candles continue the venue */
 .s-count{min-height:108cqh;padding:0}
-.s-count .swag{top:0;left:-4%;width:108%;z-index:1}
-.s-count .col{top:6cqh;height:96cqh;width:auto;z-index:1}
-.s-count .col.l{left:calc(19cqw - 22.44 * 0.96cqh)}
-.s-count .col.r{right:calc(19cqw - 22.44 * 0.96cqh)}
-.s-count .candles{bottom:3cqh;left:50%;width:min(34cqw,150px);margin-left:max(-17cqw,-75px);z-index:1}
-.s-count .c{max-width:none;padding:0 20cqw;margin-top:4cqh}
+.s-count .col{top:12cqh;height:min(70cqh,150cqw);width:auto;z-index:1}
+.s-count .col.l{left:calc(-1 * min(3cqw, 2cqh))}
+.s-count .col.r{right:calc(-1 * min(3cqw, 2cqh))}
+.s-count .c{max-width:none;padding:0 24cqw;margin-top:-6cqh}
+.s-count .title{font-size:clamp(36px,11cqw,52px)}
 .cd{display:flex;justify-content:center;align-items:stretch;margin-top:28px}
 .cd>div{display:flex;flex-direction:column;align-items:center;padding:0 clamp(9px,3.4cqw,18px)}
 .cd>div+div{border-left:1px solid var(--line)}
@@ -97,7 +111,8 @@ body{height:100%;margin:0;background:var(--desk);color:var(--ink);font-family:va
 .cd span{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;margin-top:10px;color:var(--muted)}
 
 /* the celebrations */
-.s-cel .art{display:block;width:min(42cqw,170px);height:auto;margin:6px auto -6px}
+.s-cel{padding-top:calc(30cqw + 4cqh)}
+.s-cel .hdr{top:0;left:0;width:100%;z-index:1}
 .ev-card{position:relative;margin-top:26px;padding:38px 24px 34px;background:rgba(255,253,248,.62);border:1px solid var(--line)}
 .ev-card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(181,155,106,.28);pointer-events:none}
 .ev-card .fl{width:92px;z-index:2}
@@ -114,14 +129,12 @@ body{height:100%;margin:0;background:var(--desk);color:var(--ink);font-family:va
 .fam-entry .ital{margin-top:6px}
 
 /* dress code */
-.dress-grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:30px}
-@container (min-width:360px){.dress-grid{grid-template-columns:1fr 1fr;gap:16px}}
-.dc{position:relative;padding:20px 12px 18px;border:1px solid var(--line);background:rgba(255,253,248,.5)}
-.dc .art{position:relative;height:150px;margin:0 auto 6px;width:100%}
-.dc svg{position:absolute;left:50%;top:0;width:118px;height:140px;margin-left:-59px;filter:drop-shadow(0 6px 8px rgba(80,80,60,.10))}
-.dc .bloom{position:absolute;width:84px;bottom:-8px;right:calc(50% - 76px)}
-.dc .bloom.l{right:auto;left:calc(50% - 80px);transform:scaleX(-1)}
-.dc .script-md{font-size:32px}
+.dress-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px}
+.dc{position:relative;height:clamp(210px,64cqw,270px);overflow:hidden;border:1px solid var(--line);background:rgba(255,253,248,.55)}
+.dc img{position:absolute;left:-2px;bottom:-2px;width:74%;max-width:none}
+.dc .txt{position:absolute;right:20px;top:24%;max-width:56%;text-align:right;z-index:1}
+.dc .script-md{font-size:clamp(30px,9cqw,38px);line-height:1.1}
+.dc .lbl{margin-top:8px;font-size:9.5px;letter-spacing:.18em}
 
 /* where to celebrate */
 .s-venue .venue-art{display:block;width:min(100%,380px);height:auto;margin:26px auto 4px}
@@ -161,14 +174,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
   letter-spacing:.2em;font-size:11px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:8px}
 
 /* closing */
-.s-close{min-height:96cqh;padding-bottom:22cqh}
+.s-close{min-height:100cqh}
 .s-close .mono-c{display:block;width:min(46cqw,190px);height:auto;margin:0 auto 6px}
 .s-close .title{font-size:clamp(46px,13cqw,58px)}
 .s-close .date-c{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.3em;font-size:12px;color:var(--ink2);margin-top:12px}
 .s-close .ital{font-size:20px;margin-top:6px}
-.s-close .fl{bottom:-18px;width:min(42cqw,190px);z-index:1}
-.s-close .fl.l{left:-26px}
-.s-close .fl.r{right:-26px;transform:scaleX(-1)}
 .hero>*{opacity:0;transform:translateY(10px)}
 .bism{font-family:var(--arabic);font-size:min(2.4cqh,5.4cqw);color:#2b373d;direction:rtl;line-height:1.4;margin-top:1cqh;
   text-shadow:0 0 12px rgba(255,255,255,.95)}
@@ -240,6 +250,15 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 @keyframes pulse{50%{opacity:.35}}
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
 
+#music{position:absolute;z-index:9;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  width:46px;height:46px;border-radius:50%;border:1px solid rgba(63,90,69,.22);background:rgba(255,253,248,.82);color:#3f5a45;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 4px 14px rgba(40,50,40,.12)}
+#music svg{width:20px;height:20px}
+#music .off{display:none}
+#music[aria-pressed="false"] .on{display:none}
+#music[aria-pressed="false"] .off{display:block}
+#music:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
 #replay{position:absolute;z-index:9;top:calc(14px + env(safe-area-inset-top,0px));right:14px;
   font-family:var(--serif);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink);background:rgba(255,255,255,.72);border:1px solid rgba(63,75,82,.18);border-radius:999px;
@@ -310,10 +329,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
    <div class="sections">
     <!-- countdown: the venue continues below the hero -->
     <section class="sec s-count" aria-labelledby="t-count">
-      <img class="deco swag" data-bloom src="assets/swag.webp" width="1100" height="358" alt="" loading="lazy" decoding="async">
-      <img class="deco col l" data-parallax="5" src="assets/column-urn.webp" width="420" height="1872" alt="" loading="lazy" decoding="async">
-      <img class="deco col r flip" data-parallax="5" src="assets/column-urn.webp" width="420" height="1872" alt="" loading="lazy" decoding="async">
-      <img class="deco candles" data-bloom src="assets/candles.webp" width="560" height="512" alt="" loading="lazy" decoding="async">
+      <img class="deco col l" data-parallax="5" src="assets/column-vine.webp" width="420" height="1260" alt="" loading="lazy" decoding="async">
+      <img class="deco col r flip" data-parallax="5" src="assets/column-vine.webp" width="420" height="1260" alt="" loading="lazy" decoding="async">
       <div class="c" data-reveal>
         <h2 class="title" id="t-count">Countdown</h2>
         <div class="sub">Until 12 December 2026</div>
@@ -327,10 +344,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 
     <!-- the celebrations -->
     <section class="sec s-cel" aria-labelledby="t-cel">
+      <img class="deco hdr" data-bloom src="assets/curtain-header.webp" width="1400" height="467" alt="" loading="lazy" decoding="async">
       <div class="c">
         <div data-reveal>
           <h2 class="title" id="t-cel">The Celebrations</h2>
-          <img class="art" src="assets/candles.webp" width="560" height="512" alt="" loading="lazy" decoding="async">
         </div>
         <div class="ev-card" data-reveal>
           <img class="deco fl tl" data-bloom src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
@@ -377,32 +394,12 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
         </div>
         <div class="dress-grid">
           <div class="dc" data-reveal>
-            <div class="art">
-              <svg viewBox="0 0 140 160" aria-hidden="true">
-                <defs><linearGradient id="silkBlue" x1="0" x2="1">
-                  <stop offset="0" stop-color="#d9e5f1"/><stop offset=".16" stop-color="#b3c8de"/><stop offset=".3" stop-color="#d3e0ee"/>
-                  <stop offset=".46" stop-color="#a6bdd7"/><stop offset=".62" stop-color="#cddbea"/><stop offset=".8" stop-color="#afc4dc"/><stop offset="1" stop-color="#dce6f1"/>
-                </linearGradient></defs>
-                <path d="M14 4H126C121 50 131 102 124 150Q104 160 84 151Q62 161 40 151Q24 158 16 150C9 100 19 50 14 4Z" fill="url(#silkBlue)"/>
-                <g fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.1"><path d="M44 6C39 60 48 110 41 150"/><path d="M78 6C73 62 82 112 76 151"/><path d="M106 6C101 58 110 108 104 151"/></g>
-              </svg>
-              <img class="bloom" src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
-            </div>
-            <div class="script-md">Powder Blue</div>
+            <img src="assets/dress-blue.webp" width="760" height="1013" alt="Powder-blue silk with blue hydrangeas and white roses" loading="lazy" decoding="async">
+            <div class="txt"><div class="script-md">Powder Blue</div></div>
           </div>
           <div class="dc" data-reveal>
-            <div class="art">
-              <svg viewBox="0 0 140 160" aria-hidden="true">
-                <defs><linearGradient id="silkIvory" x1="0" x2="1">
-                  <stop offset="0" stop-color="#fbf8f1"/><stop offset=".16" stop-color="#e8dfcd"/><stop offset=".3" stop-color="#f7f1e5"/>
-                  <stop offset=".46" stop-color="#e1d6c1"/><stop offset=".62" stop-color="#f5eee1"/><stop offset=".8" stop-color="#e5dbc8"/><stop offset="1" stop-color="#fcf9f3"/>
-                </linearGradient></defs>
-                <path d="M14 4H126C121 50 131 102 124 150Q104 160 84 151Q62 161 40 151Q24 158 16 150C9 100 19 50 14 4Z" fill="url(#silkIvory)"/>
-                <g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.1"><path d="M44 6C39 60 48 110 41 150"/><path d="M78 6C73 62 82 112 76 151"/><path d="M106 6C101 58 110 108 104 151"/></g>
-              </svg>
-              <img class="bloom l" src="assets/bouquet.webp" width="600" height="657" alt="" loading="lazy" decoding="async">
-            </div>
-            <div class="script-md">Off-White</div>
+            <img src="assets/dress-ivory.webp" width="760" height="1013" alt="Ivory silk with white roses" loading="lazy" decoding="async">
+            <div class="txt"><div class="script-md">Off-White</div></div>
           </div>
         </div>
       </div>
@@ -483,8 +480,6 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
 
     <!-- closing -->
     <section class="sec s-close">
-      <img class="deco fl l" data-bloom src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
-      <img class="deco fl r" data-bloom src="assets/corner.webp" width="560" height="613" alt="" loading="lazy" decoding="async">
       <div class="c">
         <img class="mono-c" id="closeMono" src="assets/monogram.webp" width="700" height="637" alt="" loading="lazy" decoding="async">
         <div data-reveal>
@@ -566,6 +561,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--sage-d);box-shadow:0 
   </section>
 
   <button id="replay" type="button" hidden>Replay</button>
+  <button id="music" type="button" aria-label="Music" aria-pressed="false" hidden>
+    <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+    <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+  </button>
+  <audio id="song" src="assets/song.mp3" loop preload="none"></audio>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -627,6 +627,7 @@ const CONFIG = {
   function play() {
     if (started) return;
     started = true;
+    startMusic();
     env.classList.remove('idle');
     env.style.pointerEvents = 'none';
     const ease = 'cubic-bezier(.65,0,.35,1)';
@@ -769,6 +770,30 @@ const CONFIG = {
   });
   $('editBtn').addEventListener('click', () => { form.hidden = false; $('thanks').hidden = true; });
 
+  /* ---------- music: starts with the tap on the seal, toggled by the sound button ---------- */
+  const song = $('song');
+  let wantMusic = false, fadeTimer = null;
+  function setMusicUI() { $('music').setAttribute('aria-pressed', String(!song.paused)); $('music').setAttribute('aria-label', song.paused ? 'Play music' : 'Pause music'); }
+  function fadeIn() {
+    clearInterval(fadeTimer); let v = 0; try { song.volume = 0; } catch (_) {}
+    fadeTimer = setInterval(() => { v = Math.min(0.7, v + 0.035); try { song.volume = v; } catch (_) {} if (v >= 0.7) clearInterval(fadeTimer); }, 100);
+  }
+  function startMusic() {
+    $('music').hidden = false; wantMusic = true;
+    try { song.currentTime = 0; } catch (_) {}
+    const p = song.play(); fadeIn();
+    if (p && p.then) p.then(setMusicUI, setMusicUI); else setMusicUI();
+  }
+  function toggleMusic() {
+    if (song.paused) { wantMusic = true; const p = song.play(); fadeIn(); if (p && p.then) p.then(setMusicUI, setMusicUI); }
+    else { wantMusic = false; song.pause(); setMusicUI(); }
+  }
+  song.addEventListener('play', setMusicUI); song.addEventListener('pause', setMusicUI);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) song.pause();
+    else if (wantMusic) { const p = song.play(); if (p && p.catch) p.catch(() => {}); }
+  });
+
   function reset() {
     anims.forEach(a => a.cancel()); anims = [];
     timers.forEach(clearTimeout); timers = [];
@@ -785,7 +810,8 @@ const CONFIG = {
 
   function ready() {
     layout();
-    if (reduce) { phone.classList.add('final'); $('main').classList.add('open'); return; }
+    $('music').addEventListener('click', toggleMusic);
+    if (reduce) { phone.classList.add('final'); $('main').classList.add('open'); $('music').hidden = false; return; }
     env.addEventListener('click', play);
     env.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
     $('replay').addEventListener('click', reset);
@@ -799,5 +825,4 @@ const CONFIG = {
 })();
 </script>
 
-</body>
-</html>
+</body></html>
