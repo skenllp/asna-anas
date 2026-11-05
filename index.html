@@ -135,10 +135,10 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 /* dress code */
 .s-dress .c{z-index:2}
 .dress-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:30px}
-.dc{display:flex;align-items:center;justify-content:center;height:clamp(92px,28cqw,120px);border-radius:22px;border:1px solid var(--line)}
-.dc.blue{background:#c4d6e6}
-.dc.ivory{background:#f7f2e8}
-.dc .script-md{font-size:clamp(32px,9.4cqw,40px);line-height:1.1}
+.dc{position:relative;height:clamp(210px,64cqw,270px);overflow:hidden;border:1px solid var(--line);border-radius:18px;background:rgba(255,248,243,.7)}
+.dc img{position:absolute;left:-2px;bottom:-2px;width:74%;max-width:none;pointer-events:none}
+.dc .txt{position:absolute;right:20px;top:24%;max-width:56%;text-align:right;z-index:1}
+.dc .script-md{font-size:clamp(30px,9cqw,38px);line-height:1.1}
 
 /* where to celebrate */
 .s-venue .venue-art{display:block;width:min(100%,380px);height:auto;margin:26px auto 4px}
@@ -394,11 +394,13 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
           <div class="sub">We kindly request you to come in<br>powder blue or off-white</div>
         </div>
         <div class="dress-grid">
-          <div class="dc blue" data-reveal>
-            <div class="script-md">Powder Blue</div>
+          <div class="dc" data-reveal>
+            <img src="assets/dress-blue.webp" width="760" height="1013" alt="Powder-blue silk with blue hydrangeas and white roses" loading="lazy" decoding="async">
+            <div class="txt"><div class="script-md">Powder Blue</div></div>
           </div>
-          <div class="dc ivory" data-reveal>
-            <div class="script-md">Off-White</div>
+          <div class="dc" data-reveal>
+            <img src="assets/dress-ivory.webp" width="760" height="1013" alt="Ivory silk with white roses" loading="lazy" decoding="async">
+            <div class="txt"><div class="script-md">Off-White</div></div>
           </div>
         </div>
       </div>
