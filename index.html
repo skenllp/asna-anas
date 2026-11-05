@@ -250,6 +250,10 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 @keyframes pulse{50%{opacity:.35}}
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
 
+/* nothing of the envelope scene is shown until it has been laid out (stops the full-screen card flashing before it shrinks into the envelope) */
+#env:not(.ready) .ep,#env:not(.ready) .card,#env:not(.ready) .env-text{visibility:hidden}
+#env.ready{animation:envIn .7s ease backwards}
+@keyframes envIn{from{opacity:0}}
 #music{position:absolute;z-index:9;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
   width:46px;height:46px;border-radius:50%;border:1px solid rgba(164,69,89,.26);background:rgba(255,248,243,.86);color:#a44559;
   display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
@@ -592,15 +596,17 @@ const CONFIG = {
     const T2 = 1550;
     for (const id of ['eBack', 'ePocket', 'eFlap'])
       A($(id), [{ translate: '0 0', opacity: 1 }, { translate: `0 ${G.eh * 1.1}px`, opacity: 0 }], { duration: 700, delay: T2, easing: 'cubic-bezier(.5,0,.75,0)' });
-    A(card, [{ transform: G.cardFrom }, { transform: 'translate(0px,0px) scale(1)' }], { duration: 1300, delay: T2 + 450, easing: ease });
-    A(card, [{ clipPath: G.clipFrom }, { clipPath: `inset(0px 0px 0px 0px round 0px)` }], { duration: 800, delay: T2 + 450, easing: 'cubic-bezier(.4,0,.6,1)' });
+    // the card first lifts out of the envelope, then glides up to full screen (slow and soft, no flick)
+    const lift = `translate(${G.cx}px,${G.cy - G.eh * 0.34}px) scale(${G.k0})`;
+    A(card, [{ transform: G.cardFrom, easing: 'cubic-bezier(.25,.1,.25,1)' }, { transform: lift, offset: .34, easing: 'cubic-bezier(.45,.05,.2,1)' }, { transform: 'translate(0px,0px) scale(1)' }], { duration: 2600, delay: T2 + 250 });
+    A(card, [{ clipPath: G.clipFrom }, { clipPath: `inset(0px 0px 0px 0px round 0px)` }], { duration: 1500, delay: T2 + 250, easing: 'cubic-bezier(.4,0,.6,1)' });
 
     // 3. the card fills the screen: the ribbon loosens and the gates open (video)
-    at(T2 + 1500, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
+    at(T2 + 2100, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
     vid.addEventListener('timeupdate', () => { if (vid.duration && vid.currentTime >= vid.duration - 0.7) go(); });
     vid.addEventListener('ended', go);
     vid.addEventListener('error', () => at(T2 + 2500, go));
-    at(T2 + 11500, go);   // safety net
+    at(T2 + 12500, go);   // safety net
   }
 
   function revealHero() {
@@ -729,6 +735,7 @@ const CONFIG = {
 
   function ready() {
     layout();
+    env.classList.add('ready');
     $('music').addEventListener('click', toggleMusic);
     if (reduce) { phone.classList.add('final'); $('main').classList.add('open'); $('music').hidden = false; return; }
     env.addEventListener('click', play);
@@ -738,8 +745,9 @@ const CONFIG = {
 
   window.addEventListener('resize', () => { if (!started) layout(); });
   const imgs = [...document.images].filter(i => i.loading !== 'lazy');
-  Promise.all(imgs.map(i => i.decode ? i.decode().catch(() => {}) : Promise.resolve()))
-    .then(() => (document.fonts ? document.fonts.ready : null)).then(ready, ready);
+  const loaded = Promise.all(imgs.map(i => i.decode ? i.decode().catch(() => {}) : Promise.resolve()))
+    .then(() => (document.fonts ? document.fonts.ready : null));
+  Promise.race([loaded, new Promise(r => setTimeout(r, 2500))]).then(ready, ready);
 })();
 </script>
 
