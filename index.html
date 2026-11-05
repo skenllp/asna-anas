@@ -251,6 +251,13 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
 
 /* nothing of the envelope scene is shown until it has been laid out (stops the full-screen card flashing before it shrinks into the envelope) */
+.skip-btn{position:absolute;z-index:4;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  pointer-events:auto;cursor:pointer;-webkit-appearance:none;appearance:none;font-family:var(--serif);font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  font-size:11px;color:#a44559;background:rgba(255,248,243,.78);border:1px solid rgba(164,69,89,.3);border-radius:999px;padding:8px 16px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:skipIn .6s ease backwards}
+.skip-btn[hidden]{display:none}
+.skip-btn:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+@keyframes skipIn{from{opacity:0}}
 #env:not(.ready) .ep,#env:not(.ready) .card,#env:not(.ready) .env-text{visibility:hidden}
 #env.ready{animation:envIn .7s ease backwards}
 @keyframes envIn{from{opacity:0}}
@@ -520,6 +527,7 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
         </div>
       </div>
     </div>
+    <button class="skip-btn" id="skipBtn" type="button" hidden>Skip</button>
     <div class="env-text" id="envText">
       <div class="s">Requests the pleasure<br>of your company</div>
       <button class="open-btn" type="button">Open invitation</button>
@@ -540,6 +548,8 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 const CONFIG = {
   // WhatsApp number that receives RSVPs, with country code, e.g. '919876543210'. Leave '' to show "copy reply" only.
   whatsapp: '',
+  // Google Sheet web-app link (Apps Script "Web app" URL ending in /exec). When set, every RSVP is saved to your sheet.
+  sheetUrl: 'https://script.google.com/macros/s/AKfycbzDn2-spk2tHZYUewLB0TPkLVTg4UJoGYbW8ouGGBulL6cMycMK4v84DQ2vnirBiSIoRA/exec',
   // Map link for the venue. Replace with the exact Google Maps pin when you have it.
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('The Farm Fit Resort, Chembothara, Meppadi, Wayanad, Kerala')
 };
@@ -583,7 +593,9 @@ const CONFIG = {
     env.style.pointerEvents = 'none';
     const run = runId, vid = $('gateVid');
     let revealed = false;
-    const go = () => { if (revealed || run !== runId) return; revealed = true; revealHero(); };
+    const skip = $('skipBtn');
+    const go = () => { if (revealed || run !== runId) return; revealed = true; skip.hidden = true; revealHero(); at(1000, () => { try { vid.pause(); } catch (e) {} }); };
+    skip.onclick = e => { e.stopPropagation(); go(); };
     const ease = 'cubic-bezier(.65,0,.35,1)';
 
     // 1. seal press, flap opens (seal stays on the flap, facing the viewer)
@@ -594,6 +606,7 @@ const CONFIG = {
 
     // 2. envelope drops away, the card (the ribbon-tied gates) rises and fills the screen
     const T2 = 1550;
+    at(T2 + 300, () => { if (!revealed && run === runId) skip.hidden = false; });
     for (const id of ['eBack', 'ePocket', 'eFlap'])
       A($(id), [{ translate: '0 0', opacity: 1 }, { translate: `0 ${G.eh * 1.1}px`, opacity: 0 }], { duration: 700, delay: T2, easing: 'cubic-bezier(.5,0,.75,0)' });
     // the card first lifts out of the envelope, then glides up to full screen (slow and soft, no flick)
@@ -660,7 +673,7 @@ const CONFIG = {
     ScrollTrigger.refresh();
   }
 
-  /* ---------- RSVP: nothing is stored here, so the guest is told to send the reply ---------- */
+  /* ---------- RSVP: saved to the Google Sheet when CONFIG.sheetUrl is set; otherwise the guest is told to send the reply ---------- */
   const form = $('rsvpForm');
   let guests = 1, replyText = '';
   const setGuests = n => { guests = Math.min(10, Math.max(1, n)); $('gCount').textContent = guests; };
@@ -668,7 +681,21 @@ const CONFIG = {
   $('gPlus').addEventListener('click', () => setGuests(guests + 1));
   const syncAttend = () => { $('guestsField').hidden = !$('attYes').checked; };
   form.addEventListener('change', syncAttend);
-  form.addEventListener('submit', e => {
+  const showFallback = (name, note) => {
+    $('thanksTitle').textContent = 'One last step, ' + name.split(' ')[0];
+    const wa = $('waLink');
+    if (CONFIG.whatsapp) {
+      wa.href = 'https://wa.me/' + CONFIG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent(replyText);
+      wa.hidden = false;
+      $('thanksNote').textContent = note || 'Your reply is written out and ready. Tap below to open WhatsApp, then press send to confirm it with the family.';
+    } else {
+      wa.hidden = true;
+      $('thanksNote').textContent = note || 'Your reply is written out and ready. Copy it and send it to the family to confirm.';
+    }
+    $('copyBtn').hidden = false; $('editBtn').hidden = false;
+    form.hidden = true; $('thanks').hidden = false;
+  };
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const name = $('rName').value.trim();
     $('nameErr').textContent = name ? '' : 'Please enter your name so the family knows who is replying.';
@@ -679,17 +706,31 @@ const CONFIG = {
       'Name: ' + name,
       yes ? 'Attending: Yes, ' + guests + (guests === 1 ? ' guest' : ' guests') : 'Attending: No, regretfully'
     ].join('\n');
-    $('thanksTitle').textContent = 'One last step, ' + name.split(' ')[0];
-    const wa = $('waLink');
-    if (CONFIG.whatsapp) {
-      wa.href = 'https://wa.me/' + CONFIG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent(replyText);
-      wa.hidden = false;
-      $('thanksNote').textContent = 'Your reply is written out and ready. Tap below to open WhatsApp, then press send to confirm it with the family.';
+    if (!CONFIG.sheetUrl) { showFallback(name); return; }
+    // saved to the family's Google Sheet; success is shown only if the sheet confirms it
+    const btn = form.querySelector('button[type="submit"]'), label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    let saved = false;
+    try {
+      const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 15000);
+      const res = await fetch(CONFIG.sheetUrl, {
+        method: 'POST', signal: ctl.signal, redirect: 'follow',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name, attending: yes ? 'Yes' : 'No', guests: yes ? guests : 0 })
+      });
+      clearTimeout(tm);
+      const data = await res.json();
+      saved = !!(data && data.ok);
+    } catch (_) { saved = false; }
+    btn.disabled = false; btn.textContent = label;
+    if (saved) {
+      $('thanksTitle').textContent = 'Thank you, ' + name.split(' ')[0];
+      $('thanksNote').textContent = yes ? 'Your reply has been received. We look forward to celebrating with you.' : 'Your reply has been received. You will be missed.';
+      $('waLink').hidden = true; $('copyBtn').hidden = true; $('editBtn').hidden = true;
+      form.hidden = true; $('thanks').hidden = false;
     } else {
-      wa.hidden = true;
-      $('thanksNote').textContent = 'Your reply is written out and ready. Copy it and send it to the family to confirm.';
+      showFallback(name, 'We could not save your reply online just now. Please send it to the family so it is not lost.' + (CONFIG.whatsapp ? ' Tap below to open WhatsApp.' : ' Copy it and send it to them.'));
     }
-    form.hidden = true; $('thanks').hidden = false;
   });
   $('copyBtn').addEventListener('click', () => {
     const done = () => { $('copyBtn').textContent = 'Copied'; setTimeout(() => $('copyBtn').textContent = 'Copy my reply', 1800); };
@@ -729,6 +770,7 @@ const CONFIG = {
     runId++;
     started = false;
     env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; env.style.opacity = '';
+    $('skipBtn').hidden = true;
     try { $('gateVid').pause(); $('gateVid').currentTime = 0; } catch (e) {}
     layout();
   }
