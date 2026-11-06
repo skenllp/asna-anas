@@ -64,7 +64,7 @@ body{height:100%;margin:0;overscroll-behavior:none;background:var(--desk);color:
 .hero-sec{position:relative;height:100cqh;overflow:hidden}
 .hero-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13cqh;
   background:linear-gradient(180deg,rgba(248,232,225,0),#f8e8e1);pointer-events:none}
-#mainBg{position:absolute;inset:0;overflow:hidden;transform-origin:50% 60%;will-change:transform}
+#mainBg{position:absolute;inset:0;overflow:hidden}
 #mainBg>video-unused{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;max-width:none}
 .hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:9.5cqh max(14px,5cqw) 0;color:#2F4A3F;isolation:isolate}
@@ -222,7 +222,6 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 #env{z-index:3;perspective:1000px;perspective-origin:50% var(--ey,40%);cursor:pointer;overflow:hidden}
 #env .paper{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gate-vid,.env-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;max-width:none;pointer-events:none;background:#f8e8e1}
-.gate-vid{transform-origin:50% 60%;will-change:transform}
 .env-img{will-change:transform,opacity}
 .ep{position:absolute;left:var(--ex);top:var(--ey);width:var(--ew);height:var(--eh)}
 .e-back{background:var(--paper-in);border-radius:4px;
@@ -574,7 +573,6 @@ const CONFIG = {
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let G = {}, anims = [], timers = [], started = false, runId = 0;
-  const ZOOM_RATE = 0.036;   // door zoom speed, in scale per second
 
   function layout() {
     const W = phone.clientWidth, H = phone.clientHeight;
@@ -629,16 +627,8 @@ const CONFIG = {
     // 3. the card fills the screen: the ribbon loosens and the gates open (video)
     at(T2 + 2100, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
     const capt = $('capt');
-    let zooming = false;
     vid.addEventListener('timeupdate', () => {
       capt.classList.toggle('on', !revealed && vid.currentTime >= 1.0 && vid.currentTime < 4.3);
-      // the doors part from about 3.8s: push the camera through them, on towards the hero
-      if (!zooming && !revealed && run === runId && vid.currentTime >= 3.8) {
-        zooming = true;
-        // constant speed, running on until the fade to the hero has finished (video end + 0.2s)
-        const secs = (vid.duration || 8) + 0.2 - vid.currentTime;
-        A(vid, [{ transform: 'scale(1)' }, { transform: `scale(${1 + ZOOM_RATE * secs})` }], { duration: secs * 1000, easing: 'linear' });
-      }
       if (vid.duration && vid.currentTime >= vid.duration - 0.7) go();
     });
     vid.addEventListener('ended', go);
@@ -650,14 +640,6 @@ const CONFIG = {
     const run = runId;
     $('main').classList.add('show');
     A(env, [{ opacity: 1 }, { opacity: 0 }], { duration: 900 });
-    // the zoom carries on into the hero: same scale and speed as the door video during the 900ms fade, then a soft stop
-    const m = getComputedStyle($('gateVid')).transform;
-    const from = m === 'none' || new DOMMatrix(m).a <= 1 ? 1.126 : new DOMMatrix(m).a;   // 1.126: skipped or no video
-    A($('mainBg'), [
-      { transform: `scale(${from})`, easing: 'linear' },
-      { transform: `scale(${from + ZOOM_RATE * 0.9})`, offset: 900 / 2100, easing: 'cubic-bezier(.33,.66,.66,1)' },
-      { transform: 'scale(1.18)' }
-    ], { duration: 2100, easing: 'linear' });
     at(1000, () => { if (run === runId) env.style.display = 'none'; });
     const T6 = 500;
     [...$('hero').children].forEach((el, i) =>
