@@ -492,9 +492,10 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
     <img class="paper" src="assets/paper-blush.webp" alt="">
     <div class="ep e-back" id="eBack"></div>
     <div class="card" id="card"><div class="gwrap">
-      <video id="gateVid" class="gate-vid" muted playsinline webkit-playsinline preload="auto" poster="assets/ribbon-poster.webp" aria-hidden="true">
+      <video id="gateVid" class="gate-vid" muted playsinline webkit-playsinline preload="auto" aria-hidden="true">
         <source src="assets/ribbon-open.mp4" type="video/mp4">
       </video>
+      <img id="gatePoster" class="gate-vid" src="assets/ribbon-poster.webp" alt="">
     </div></div>
     <div class="ep e-pocket" id="ePocket">
       <svg viewBox="0 0 600 420" preserveAspectRatio="none">
@@ -626,6 +627,9 @@ const CONFIG = {
 
     // 3. the card fills the screen: the ribbon loosens and the gates open (video)
     at(T2 + 2100, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
+    // browsers draw video slightly brighter than the same still image, so fade the poster out instead of swapping
+    const hidePoster = () => { if (run === runId) A($('gatePoster'), [{ opacity: 1 }, { opacity: 0 }], { duration: 350, easing: 'linear' }); };
+    vid.addEventListener('playing', () => { vid.requestVideoFrameCallback ? vid.requestVideoFrameCallback(hidePoster) : hidePoster(); }, { once: true });
     const capt = $('capt');
     vid.addEventListener('timeupdate', () => {
       capt.classList.toggle('on', !revealed && vid.currentTime >= 1.0 && vid.currentTime < 4.3);
