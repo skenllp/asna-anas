@@ -219,37 +219,32 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 .gwrap{position:absolute;inset:0}
 
 /* ---------- envelope scene ---------- */
-#env{z-index:3;perspective:1000px;perspective-origin:50% var(--ey,40%);cursor:pointer;overflow:hidden}
+#env{z-index:3;cursor:pointer;overflow:hidden;background:#f3ddd5}
 #env .paper{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gate-vid,.env-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;max-width:none;pointer-events:none;background:#f8e8e1}
 .env-img{will-change:transform,opacity}
-.ep{position:absolute;left:var(--ex);top:var(--ey);width:var(--ew);height:var(--eh)}
-.e-back{background:var(--paper-in);border-radius:4px;
-  box-shadow:0 22px 42px rgba(122,63,74,.22),0 3px 8px rgba(122,63,74,.12)}
-.e-back::after{content:"";position:absolute;inset:0;border-radius:4px;box-shadow:inset 0 0 22px rgba(164,69,89,.14)}
+.ep{position:absolute}
+.efit{left:var(--fx);top:var(--fy);width:var(--fw);height:var(--fh)}
+.e-back{background:linear-gradient(180deg,#e9c7bf,#f1d9d1 55%,#f4e0d8)}
+.e-pocket img,.e-flap .flap-img{position:absolute;left:0;top:0;width:100%;height:100%;display:block;max-width:none;pointer-events:none;-webkit-user-select:none;user-select:none}
+.e-pocket{filter:drop-shadow(0 -2px 6px rgba(122,63,74,.16))}
+.e-flap{height:calc(var(--fh)*.616);transform-origin:50% 0;will-change:transform,filter}
+.e-flap .flap-img{height:100%}
+.seal{position:absolute;left:35.07%;top:71.94%;width:28.9%;height:26.3%;transform-origin:50% 50%;will-change:transform}
+.seal img{width:100%;height:100%;display:block;pointer-events:none;filter:drop-shadow(0 5px 6px rgba(90,25,40,.38))}
 .card{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;overflow:hidden;
-  box-shadow:0 0 0 1px rgba(201,155,122,.4);will-change:transform,clip-path}
+  box-shadow:0 0 0 1px rgba(201,155,122,.4);will-change:transform}
 .card img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
-.e-pocket svg,.e-flap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:block}
-.e-flap{height:calc(var(--eh)*.757);transform-origin:50% 0;transform-style:preserve-3d}
-.e-flap .face{position:absolute;inset:0;backface-visibility:hidden}
-.e-flap .face.back{transform:rotateX(180deg)}
-.seal{position:absolute;left:50%;top:91%;width:calc(var(--ew)*.24);aspect-ratio:1;margin-left:calc(var(--ew)*-.12);
-  margin-top:calc(var(--ew)*-.12);transform-style:preserve-3d}
-.seal-in{position:absolute;inset:0;transform:translateZ(2px)}
-.seal-in img{width:100%;height:100%;display:block;filter:drop-shadow(0 3px 4px rgba(90,25,40,.35))}
-.seal-in svg{position:absolute;inset:0;width:100%;height:100%}
-.env-text{position:absolute;left:0;right:0;top:calc(var(--ey) + var(--eh) + 5cqh);text-align:center;color:#a44559;
-  padding:0 max(16px,6cqw)}
-.env-text .s{font-family:var(--script);font-size:min(4.2cqh,9cqw);line-height:1.2}
+.e-hint{height:auto;top:calc(var(--fy) + var(--fh)*.655);text-align:center;pointer-events:none}
+.e-hint .open-btn{pointer-events:auto;margin-top:0}
 .open-btn{margin-top:2.8cqh;font-family:var(--serif);font-weight:600;letter-spacing:.22em;text-transform:uppercase;
   font-size:min(1.45cqh,3.1cqw);color:#a44559;background:rgba(255,248,243,.8);border:1px solid rgba(164,69,89,.42);
   border-radius:999px;padding:1.1cqh 5.2cqw;cursor:pointer;-webkit-appearance:none;appearance:none;
   box-shadow:0 2px 10px rgba(164,69,89,.14);animation:pulse 2.4s ease-in-out infinite}
 .open-btn:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
-.idle .seal-in{animation:breathe 2.4s ease-in-out infinite}
+.idle .seal{animation:breathe 2.6s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.35}}
-@keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
+@keyframes breathe{50%{transform:scale(1.04)}}
 
 /* nothing of the envelope scene is shown until it has been laid out (stops the full-screen card flashing before it shrinks into the envelope) */
 .capt{position:absolute;left:0;right:0;top:23cqh;z-index:3;text-align:center;pointer-events:none;opacity:0;transition:opacity 1s ease;color:#a44559;padding:3cqh 0;
@@ -265,7 +260,7 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 .skip-btn[hidden]{display:none}
 .skip-btn:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
 @keyframes skipIn{from{opacity:0}}
-#env:not(.ready) .ep,#env:not(.ready) .card,#env:not(.ready) .env-text{visibility:hidden}
+#env:not(.ready) .ep,#env:not(.ready) .card{visibility:hidden}
 #env.ready{animation:envIn .7s ease backwards}
 @keyframes envIn{from{opacity:0}}
 #music{position:absolute;z-index:9;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
@@ -489,59 +484,20 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 
   <!-- ENVELOPE -->
   <section class="scene idle" id="env" role="button" tabindex="0" aria-label="Open the invitation">
-    <img class="paper" src="assets/paper-blush.webp" alt="">
-    <div class="ep e-back" id="eBack"></div>
+    <div class="ep efit e-back" id="eBack"></div>
     <div class="card" id="card"><div class="gwrap">
       <video id="gateVid" class="gate-vid" muted playsinline webkit-playsinline preload="auto" poster="assets/ribbon-poster.webp" aria-hidden="true">
         <source src="assets/ribbon-open.mp4" type="video/mp4">
       </video>
     </div></div>
-    <div class="ep e-pocket" id="ePocket">
-      <svg viewBox="0 0 600 420" preserveAspectRatio="none">
-        <g filter="url(#tex)">
-          <path d="M0 0 L300 300 L0 420 Z" fill="url(#gSide)"/>
-          <path d="M600 0 L300 300 L600 420 Z" fill="url(#gSide)"/>
-          <path d="M0 420 L300 300 L600 420 Z" fill="url(#gBottom)" filter="url(#flapShadow)"/>
-        </g>
-        <path d="M0 0 L300 300 L600 0" fill="none" stroke="#fff8f3" stroke-width="1.6" opacity=".9"/>
-        <path d="M2 418 L300 302 L598 418" fill="none" stroke="#dcb3ae" stroke-width="1" opacity=".8"/>
-      </svg>
+    <div class="ep efit e-pocket" id="ePocket"><img src="assets/env-pocket.webp" alt="" width="941" height="1672" draggable="false"></div>
+    <div class="ep efit e-flap" id="eFlap">
+      <img class="flap-img" src="assets/env-flap.webp" alt="" width="941" height="1030" draggable="false">
+      <div class="seal" id="seal"><img src="assets/env-seal.webp" alt="" width="272" height="271" draggable="false"></div>
     </div>
-    <div class="ep e-flap" id="eFlap">
-      <div class="face front">
-        <svg viewBox="0 0 600 318" preserveAspectRatio="none">
-          <path d="M0 0 H600 L318 306 Q300 320 282 306 Z" fill="url(#gFlap)" filter="url(#flapShadow)"/>
-          <path d="M0 0 H600 L318 306 Q300 320 282 306 Z" fill="url(#gFlap)" filter="url(#tex)"/>
-          <path d="M28 10 H572 L312 286 Q300 296 288 286 Z" fill="none" stroke="#e6c3bd" stroke-width="1.2"/>
-          <path d="M30 12 H570 L311 287" fill="none" stroke="#fff8f3" stroke-width="1" opacity=".9"/>
-        </svg>
-      </div>
-      <div class="face back">
-        <svg viewBox="0 0 600 318" preserveAspectRatio="none">
-          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="#efcdc6" filter="url(#tex)"/>
-          <path d="M0 318 H600 L318 12 Q300 -2 282 12 Z" fill="none" stroke="#dfb8b2" stroke-width="2"/>
-        </svg>
-      </div>
-      <div class="seal" id="seal">
-        <div class="seal-in" id="sealIn">
-          <img src="assets/seal-burgundy.webp" alt="">
-          <svg viewBox="0 0 100 100" aria-hidden="true">
-            <g font-family="Pinyon Script, cursive" font-size="44" text-anchor="middle">
-              <text x="44" y="60" fill="#efc1c9" opacity=".7">A</text>
-              <text x="56" y="67" fill="#efc1c9" opacity=".7">A</text>
-              <text x="43" y="59" fill="#6f2535">A</text>
-              <text x="55" y="66" fill="#6f2535">A</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
+    <div class="ep efit e-hint" id="envText"><button class="open-btn" type="button">Open invitation</button></div>
     <div class="capt" id="capt" aria-hidden="true"><div class="k">We are getting married</div><div class="n"><span class="cap">A</span>sna <i>&amp;</i> <span class="cap">A</span>nas</div></div>
     <button class="skip-btn" id="skipBtn" type="button" hidden>Skip</button>
-    <div class="env-text" id="envText">
-      <div class="s">Requests the pleasure<br>of your company</div>
-      <button class="open-btn" type="button">Open invitation</button>
-    </div>
   </section>
 
   <button id="music" type="button" aria-label="Music" aria-pressed="false" hidden>
@@ -576,17 +532,15 @@ const CONFIG = {
 
   function layout() {
     const W = phone.clientWidth, H = phone.clientHeight;
-    const ew = Math.min(W * 0.84, 380), eh = ew * 0.7;
-    const ex = (W - ew) / 2, ey = H * 0.44 - eh / 2;
     phone.style.setProperty('--s', Math.max(W / 1024, H / 1536));
-    for (const [k, v] of Object.entries({ '--ex': ex, '--ey': ey, '--ew': ew, '--eh': eh }))
+    // the closed envelope artwork (941x1672) covers the whole screen without stretching
+    const sc = Math.max(W / 941, H / 1672), fw = 941 * sc, fh = 1672 * sc, fx = (W - fw) / 2, fy = (H - fh) / 2;
+    for (const [k, v] of Object.entries({ '--fx': fx, '--fy': fy, '--fw': fw, '--fh': fh }))
       env.style.setProperty(k, v + 'px');
-    // invitation card inside the envelope: same framing as the full-screen gates, scaled down
-    const cw = ew * 0.8, k0 = cw / W, cx = (W - cw) / 2, cy = ey + eh * 0.05;
-    const visible = (ey + eh - cy) / k0;
-    G = { W, H, ew, eh, ex, ey, k0, cx, cy, cardFrom: `translate(${cx}px,${cy}px) scale(${k0})`,
-          clipFrom: `inset(0px 0px ${Math.max(0, H - visible)}px 0px round ${6 / k0}px)` };
-    if (!started) { card.style.transform = G.cardFrom; card.style.clipPath = G.clipFrom; }
+    // the invitation card waits inside the envelope opening, then rises
+    const cw = W * 0.7, k0 = cw / W, cx = (W - cw) / 2, cy = fy + fh * 0.27;
+    G = { W, H, fx, fy, fw, fh, k0, cx, cy, cardFrom: `translate(${cx}px,${cy}px) scale(${k0})` };
+    if (!started) card.style.transform = G.cardFrom;
   }
 
   function A(el, frames, opts) {
@@ -606,26 +560,28 @@ const CONFIG = {
     const skip = $('skipBtn');
     const go = () => { if (revealed || run !== runId) return; revealed = true; skip.hidden = true; $('capt').classList.remove('on'); revealHero(); at(1000, () => { try { vid.pause(); } catch (e) {} }); };
     skip.onclick = e => { e.stopPropagation(); go(); };
-    const ease = 'cubic-bezier(.65,0,.35,1)';
+        // 1. the seal gives a soft press, then the flap folds backward about its top edge (the seal rides on it)
+    const soft = 'cubic-bezier(.5,.05,.25,1)';
+    A($('seal'), [{ transform: 'scale(1)' }, { transform: 'scale(.93)' }, { transform: 'scale(1)' }], { duration: 300, easing: 'ease-in-out' });
+    A($('envText'), [{ opacity: 1 }, { opacity: 0 }], { duration: 350 });
+    A($('eFlap'), [
+      { transform: 'perspective(1300px) rotateX(0deg)', filter: 'brightness(1)', offset: 0 },
+      { transform: 'perspective(1300px) rotateX(-84deg)', filter: 'brightness(.8)', offset: .62 },
+      { transform: 'perspective(1300px) rotateX(-180deg)', filter: 'brightness(.8)', offset: 1 }
+    ], { duration: 1500, delay: 330, easing: soft });
 
-    // 1. seal press, flap opens (seal stays on the flap, facing the viewer)
-    A($('sealIn'), [{ transform: 'translateZ(2px) scale(1)' }, { transform: 'translateZ(2px) scale(.93)' }, { transform: 'translateZ(2px) scale(1)' }], { duration: 260 });
-    A($('eFlap'), [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(180deg)' }], { duration: 1300, delay: 180, easing: 'cubic-bezier(.55,.05,.3,1)' });
-    A($('seal'), [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-180deg)' }], { duration: 1300, delay: 180, easing: 'cubic-bezier(.55,.05,.3,1)' });
-    A($('envText'), [{ opacity: 1 }, { opacity: 0 }], { duration: 500, delay: 100 });
-
-    // 2. envelope drops away, the card (the ribbon-tied gates) rises and fills the screen
-    const T2 = 1550;
+    // 2. the envelope slips away, the card (the ribbon-tied arbor) rises and fills the screen
+    const T2 = 1500;
     at(T2 + 300, () => { if (!revealed && run === runId) skip.hidden = false; });
-    for (const id of ['eBack', 'ePocket', 'eFlap'])
-      A($(id), [{ translate: '0 0', opacity: 1 }, { translate: `0 ${G.eh * 1.1}px`, opacity: 0 }], { duration: 700, delay: T2, easing: 'cubic-bezier(.5,0,.75,0)' });
+    for (const id of ['ePocket'])
+      A($(id), [{ translate: '0 0' }, { translate: `0 ${G.fh * 0.7}px` }], { duration: 1000, delay: T2 + 300, easing: 'cubic-bezier(.55,0,.8,.4)' });
+    A($('eBack'), [{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: T2 + 600, easing: 'ease' });
     // the card first lifts out of the envelope, then glides up to full screen (slow and soft, no flick)
-    const lift = `translate(${G.cx}px,${G.cy - G.eh * 0.34}px) scale(${G.k0})`;
-    A(card, [{ transform: G.cardFrom, easing: 'cubic-bezier(.25,.1,.25,1)' }, { transform: lift, offset: .34, easing: 'cubic-bezier(.45,.05,.2,1)' }, { transform: 'translate(0px,0px) scale(1)' }], { duration: 2600, delay: T2 + 250 });
-    A(card, [{ clipPath: G.clipFrom }, { clipPath: `inset(0px 0px 0px 0px round 0px)` }], { duration: 1500, delay: T2 + 250, easing: 'cubic-bezier(.4,0,.6,1)' });
+    const lift = `translate(${G.cx}px,${G.cy - G.fh * 0.17}px) scale(${G.k0})`;
+    A(card, [{ transform: G.cardFrom, easing: 'cubic-bezier(.25,.1,.25,1)' }, { transform: lift, offset: .34, easing: 'cubic-bezier(.45,.05,.2,1)' }, { transform: 'translate(0px,0px) scale(1)' }], { duration: 2600, delay: T2 + 150 });
 
     // 3. the card fills the screen: the ribbon loosens and the gates open (video)
-    at(T2 + 2100, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
+    at(T2 + 2000, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
     const capt = $('capt');
     vid.addEventListener('timeupdate', () => {
       capt.classList.toggle('on', !revealed && vid.currentTime >= 1.0 && vid.currentTime < 4.3);
