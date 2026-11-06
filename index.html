@@ -252,6 +252,12 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
 @keyframes breathe{50%{transform:translateZ(2px) scale(1.045)}}
 
 /* nothing of the envelope scene is shown until it has been laid out (stops the full-screen card flashing before it shrinks into the envelope) */
+.capt{position:absolute;left:0;right:0;top:23cqh;z-index:3;text-align:center;pointer-events:none;opacity:0;transition:opacity 1s ease;color:#a44559;padding:3cqh 0;
+  background:radial-gradient(60% 55% at 50% 50%,rgba(255,248,243,.62),rgba(255,248,243,0) 72%)}
+.capt.on{opacity:1}
+.capt .k{font-family:var(--serif);font-weight:600;font-size:clamp(10px,2.9cqw,12px);letter-spacing:.34em;text-transform:uppercase;text-shadow:0 0 10px rgba(255,248,243,.95)}
+.capt .n{font-family:var(--script);font-size:min(13.5cqw,58px);line-height:1.1;margin-top:1.2cqh;text-shadow:0 0 14px rgba(255,248,243,.95),0 0 4px rgba(255,248,243,.9)}
+.capt .n i{font-style:normal;font-size:.62em;padding:0 .1em}
 .skip-btn{position:absolute;z-index:4;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));
   pointer-events:auto;cursor:pointer;-webkit-appearance:none;appearance:none;font-family:var(--serif);font-weight:600;letter-spacing:.2em;text-transform:uppercase;
   font-size:11px;color:#a44559;background:rgba(255,248,243,.78);border:1px solid rgba(164,69,89,.3);border-radius:999px;padding:8px 16px;
@@ -486,8 +492,8 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
     <img class="paper" src="assets/paper-blush.webp" alt="">
     <div class="ep e-back" id="eBack"></div>
     <div class="card" id="card"><div class="gwrap">
-      <video id="gateVid" class="gate-vid" muted playsinline webkit-playsinline preload="auto" poster="assets/gate-poster.webp" aria-hidden="true">
-        <source src="assets/gates-open.mp4" type="video/mp4">
+      <video id="gateVid" class="gate-vid" muted playsinline webkit-playsinline preload="auto" poster="assets/ribbon-poster.webp" aria-hidden="true">
+        <source src="assets/ribbon-open.mp4" type="video/mp4">
       </video>
     </div></div>
     <div class="ep e-pocket" id="ePocket">
@@ -530,6 +536,7 @@ input[type=text]:focus{outline:none;border-color:var(--sage-d);box-shadow:0 0 0 
         </div>
       </div>
     </div>
+    <div class="capt" id="capt" aria-hidden="true"><div class="k">We are getting married</div><div class="n"><span class="cap">A</span>sna <i>&amp;</i> <span class="cap">A</span>nas</div></div>
     <button class="skip-btn" id="skipBtn" type="button" hidden>Skip</button>
     <div class="env-text" id="envText">
       <div class="s">Requests the pleasure<br>of your company</div>
@@ -597,7 +604,7 @@ const CONFIG = {
     const run = runId, vid = $('gateVid');
     let revealed = false;
     const skip = $('skipBtn');
-    const go = () => { if (revealed || run !== runId) return; revealed = true; skip.hidden = true; revealHero(); at(1000, () => { try { vid.pause(); } catch (e) {} }); };
+    const go = () => { if (revealed || run !== runId) return; revealed = true; skip.hidden = true; $('capt').classList.remove('on'); revealHero(); at(1000, () => { try { vid.pause(); } catch (e) {} }); };
     skip.onclick = e => { e.stopPropagation(); go(); };
     const ease = 'cubic-bezier(.65,0,.35,1)';
 
@@ -619,7 +626,11 @@ const CONFIG = {
 
     // 3. the card fills the screen: the ribbon loosens and the gates open (video)
     at(T2 + 2100, () => { if (run !== runId) return; let q; try { q = vid.play(); } catch (e) {} if (q && q.catch) q.catch(() => at(800, go)); });
-    vid.addEventListener('timeupdate', () => { if (vid.duration && vid.currentTime >= vid.duration - 0.7) go(); });
+    const capt = $('capt');
+    vid.addEventListener('timeupdate', () => {
+      capt.classList.toggle('on', !revealed && vid.currentTime >= 1.0 && vid.currentTime < 4.3);
+      if (vid.duration && vid.currentTime >= vid.duration - 0.7) go();
+    });
     vid.addEventListener('ended', go);
     vid.addEventListener('error', () => at(T2 + 2500, go));
     at(T2 + 12500, go);   // safety net
@@ -773,7 +784,7 @@ const CONFIG = {
     runId++;
     started = false;
     env.classList.add('idle'); env.style.pointerEvents = ''; env.style.display = ''; env.style.opacity = '';
-    $('skipBtn').hidden = true;
+    $('skipBtn').hidden = true; $('capt').classList.remove('on');
     try { $('gateVid').pause(); $('gateVid').currentTime = 0; } catch (e) {}
     layout();
   }
